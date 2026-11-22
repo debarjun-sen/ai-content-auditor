@@ -196,7 +196,7 @@ class FixesAndApiTest extends AICA_TestCase {
 
 		$init = $this->mcp( 'initialize', array( 'protocolVersion' => '2025-06-18' ) )->get_data();
 		$this->assertSame( '2025-06-18', $init['result']['protocolVersion'] );
-		$this->assertSame( 'ai-content-auditor', $init['result']['serverInfo']['name'] );
+		$this->assertSame( 'contentpulse-ai-auditor', $init['result']['serverInfo']['name'] );
 
 		$tools = array_column( $this->mcp( 'tools/list' )->get_data()['result']['tools'], null, 'name' );
 		$this->assertArrayHasKey( 'check_seo', $tools );

@@ -1,11 +1,11 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"meta": {
-		"title": "AI Content Auditor — local demo",
+		"title": "ContentPulse AI Auditor — local demo",
 		"description": "Activates the locally mounted plugins, seeds demo content and runs a quick scan.",
-		"author": "ai-content-auditor"
+		"author": "contentpulse-ai-auditor"
 	},
-	"landingPage": "/wp-admin/admin.php?page=ai-content-auditor",
+	"landingPage": "/wp-admin/admin.php?page=contentpulse-ai-auditor",
 	"preferredVersions": {
 		"php": "8.3",
 		"wp": "latest"
@@ -17,11 +17,11 @@
 	"steps": [
 		{
 			"step": "activatePlugin",
-			"pluginPath": "ai-content-auditor/ai-content-auditor.php"
+			"pluginPath": "contentpulse-ai-auditor/contentpulse-ai-auditor.php"
 		},
 		{
 			"step": "activatePlugin",
-			"pluginPath": "ai-content-auditor-demo/ai-content-auditor-demo.php"
+			"pluginPath": "contentpulse-ai-auditor-demo/contentpulse-ai-auditor-demo.php"
 		},
 		{
 			"step": "setSiteOptions",

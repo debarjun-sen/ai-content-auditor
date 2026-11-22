@@ -1,7 +1,7 @@
 {
-	"name": "ai-content-auditor-workspace",
+	"name": "contentpulse-ai-auditor-workspace",
 	"private": true,
-	"description": "Workspace for the AI Content Auditor WordPress plugin and its demo companion.",
+	"description": "Workspace for the ContentPulse AI Auditor WordPress plugin and its demo companion.",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"env:start": "wp-env start",
@@ -11,13 +11,13 @@
 		"demo:reset": "wp-env run cli wp aica-demo reset",
 		"demo:audit": "wp-env run cli wp aica audit --mode=quick",
 		"demo:audit:ai": "wp-env run cli wp aica audit --mode=ai --max-posts=8",
-		"composer:install": "wp-env run tests-cli --env-cwd=wp-content/plugins/ai-content-auditor composer install",
-		"test:unit": "wp-env run tests-cli --env-cwd=wp-content/plugins/ai-content-auditor composer test:unit",
-		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/ai-content-auditor composer test:integration",
+		"composer:install": "wp-env run tests-cli --env-cwd=wp-content/plugins/contentpulse-ai-auditor composer install",
+		"test:unit": "wp-env run tests-cli --env-cwd=wp-content/plugins/contentpulse-ai-auditor composer test:unit",
+		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/contentpulse-ai-auditor composer test:integration",
 		"test": "npm run test:unit && npm run test:integration",
-		"lint:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/ai-content-auditor composer lint",
-		"lint:js": "node --check ai-content-auditor/assets/admin.js",
-		"playground": "npx @wp-playground/cli@latest server --mount=./ai-content-auditor:/wordpress/wp-content/plugins/ai-content-auditor --mount=./ai-content-auditor-demo:/wordpress/wp-content/plugins/ai-content-auditor-demo --blueprint=./blueprint.local.json",
+		"lint:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/contentpulse-ai-auditor composer lint",
+		"lint:js": "node --check contentpulse-ai-auditor/assets/admin.js",
+		"playground": "npx @wp-playground/cli@latest server --mount=./contentpulse-ai-auditor:/wordpress/wp-content/plugins/contentpulse-ai-auditor --mount=./contentpulse-ai-auditor-demo:/wordpress/wp-content/plugins/contentpulse-ai-auditor-demo --blueprint=./blueprint.local.json",
 		"build": "node bin/build.mjs"
 	},
 	"devDependencies": {

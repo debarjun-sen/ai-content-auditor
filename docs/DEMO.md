@@ -4,7 +4,7 @@ A walkthrough that shows every feature in a logical order. Works in Playground, 
 
 ## Setup (before the audience arrives)
 
-1. Activate **AI Content Auditor** and **AI Content Auditor – Demo Content**.
+1. Activate **ContentPulse AI Auditor** and **ContentPulse AI Auditor – Demo Content**.
 2. **Tools → AI Auditor Demo → Create demo content** (or `wp aica-demo seed`). This creates 8 posts/pages:
 
    | Item | Planted issues |

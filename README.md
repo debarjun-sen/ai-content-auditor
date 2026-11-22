@@ -1,4 +1,4 @@
-# AI Content Auditor for WordPress
+# ContentPulse AI Auditor for WordPress
 
 A Claude-powered agent that audits a WordPress site for **SEO**, **accessibility** and **stale content**, then proposes fixes that a human approves. It ships with a clean admin dashboard where you can watch the agent work live, an **MCP server** so Claude Desktop and Claude Code can use the same audit tools, and a **companion demo plugin** that fills a site with realistic, deliberately flawed content.
 
@@ -64,11 +64,11 @@ npm run env:start
 npm run demo:seed
 ```
 
-Open <http://localhost:8888/wp-admin/admin.php?page=ai-content-auditor> (user `admin` / password `password`).
+Open <http://localhost:8888/wp-admin/admin.php?page=contentpulse-ai-auditor> (user `admin` / password `password`).
 
 ### Option D — any WordPress site
 
-Upload `dist/ai-content-auditor.zip` (build with `npm run build`) via **Plugins → Add New → Upload**. Optionally add the demo plugin too.
+Upload `dist/contentpulse-ai-auditor.zip` (build with `npm run build`) via **Plugins → Add New → Upload**. Optionally add the demo plugin too.
 
 ### Add your Claude API key
 
@@ -121,7 +121,7 @@ claude mcp add --transport http content-auditor https://your-site.example/wp-jso
 
 The **Connect (MCP)** tab generates ready-to-paste snippets for Claude Code and Claude Desktop (the Base64 header is computed in your browser and never sent anywhere). The endpoint speaks JSON-RPC 2.0 over Streamable HTTP (`initialize`, `ping`, `tools/list`, `tools/call`; protocol versions 2025-11-25, 2025-06-18, 2025-03-26). Findings recorded by external agents appear in the dashboard tagged **MCP agent**.
 
-On WordPress 6.9+ the tools are also registered as Abilities (`ai-content-auditor/check-seo`, …) with `meta.mcp.public`, so the official WordPress MCP Adapter can serve them too.
+On WordPress 6.9+ the tools are also registered as Abilities (`contentpulse-ai-auditor/check-seo`, …) with `meta.mcp.public`, so the official WordPress MCP Adapter can serve them too.
 
 ## Safety model
 
@@ -177,7 +177,7 @@ Demo companion: `wp aica-demo seed` and `wp aica-demo reset`.
 ## Development & tests
 
 ```
-ai-content-auditor/            ← the plugin
+contentpulse-ai-auditor/            ← the plugin
   includes/analyzers/          ← pure PHP analyzers (unit-tested without WordPress)
   includes/safety/             ← injection guard, schema validator, fix applier
   includes/tools/              ← tool registry (single source of truth)
@@ -186,7 +186,7 @@ ai-content-auditor/            ← the plugin
   assets/                      ← admin UI (vanilla JS + CSS, no build step)
   tests/unit/                  ← PHPUnit, no WordPress needed
   tests/integration/           ← WP test suite: tools, agent loop (scripted API), fixes, REST, MCP
-ai-content-auditor-demo/       ← companion plugin with flawed demo content
+contentpulse-ai-auditor-demo/       ← companion plugin with flawed demo content
 docs/                          ← scope/architecture and demo script
 blueprint.json                 ← Playground one-click demo
 ```
@@ -194,7 +194,7 @@ blueprint.json                 ← Playground one-click demo
 **Unit tests** (any machine with PHP 7.4+ and Composer):
 
 ```powershell
-cd ai-content-auditor; composer install; composer test:unit
+cd contentpulse-ai-auditor; composer install; composer test:unit
 ```
 
 **Integration tests** (Docker + wp-env):
@@ -207,10 +207,10 @@ The integration suite drives the full agent loop against scripted Claude respons
 
 ## Publishing
 
-1. `npm run build` → `dist/ai-content-auditor.zip` and `dist/ai-content-auditor-demo.zip`.
+1. `npm run build` → `dist/contentpulse-ai-auditor.zip` and `dist/contentpulse-ai-auditor-demo.zip`.
 2. Create a GitHub release and attach the zips; CI (`.github/workflows/ci.yml`) runs unit tests on PHP 7.4/8.1/8.3, integration tests in wp-env, linting, and uploads the zips as an artifact.
 3. Share the Playground link above; it always installs the latest `main` branch.
-4. For WordPress.org: `ai-content-auditor/readme.txt` is ready; run Plugin Check before submitting. Note that the plugin calls an external service (Anthropic API) only when an AI audit is run with a key the site owner provides — this is disclosed in the readme as the directory guidelines require.
+4. For WordPress.org: `contentpulse-ai-auditor/readme.txt` is ready; run Plugin Check before submitting. Note that the plugin calls an external service (Anthropic API) only when an AI audit is run with a key the site owner provides — this is disclosed in the readme as the directory guidelines require.
 
 ## Extending
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       AI Content Auditor
+ * Plugin Name:       ContentPulse AI Auditor
  * Plugin URI:        https://github.com/debarjun-sen/ai-content-auditor
  * Description:       A Claude-powered agent that audits your content for SEO, accessibility, and stale-content issues, then proposes fixes you approve.
  * Version:           1.0.0
@@ -10,7 +10,7 @@
  * Author URI:        https://github.com/debarjun-sen
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-content-auditor
+ * Text Domain:       contentpulse-ai-auditor
  *
  * @package AICA
  */

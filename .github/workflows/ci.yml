@@ -17,7 +17,7 @@ jobs:
         php: [ '7.4', '8.1', '8.3' ]
     defaults:
       run:
-        working-directory: ai-content-auditor
+        working-directory: contentpulse-ai-auditor
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -54,11 +54,11 @@ jobs:
         with:
           node-version: 22
       - name: PHP syntax
-        run: find ai-content-auditor ai-content-auditor-demo -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
+        run: find contentpulse-ai-auditor contentpulse-ai-auditor-demo -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
       - name: JS syntax
         run: npm run lint:js
       - name: PHPCS (WordPress Coding Standards)
-        working-directory: ai-content-auditor
+        working-directory: contentpulse-ai-auditor
         run: composer install --no-interaction --no-progress && composer lint
         continue-on-error: true
 

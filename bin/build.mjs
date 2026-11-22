@@ -13,7 +13,7 @@ import { deflateRawSync, crc32 } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath( new URL( '..', import.meta.url ) );
-const PLUGINS = [ 'ai-content-auditor', 'ai-content-auditor-demo' ];
+const PLUGINS = [ 'contentpulse-ai-auditor', 'contentpulse-ai-auditor-demo' ];
 const EXCLUDE = [
 	/^tests\//, /^vendor\//, /^node_modules\//, /^\.[^/]+/, /(^|\/)\.DS_Store$/,
 	/^composer\.(json|lock)$/, /^phpunit.*\.xml(\.dist)?$/, /^phpcs\.xml(\.dist)?$/, /\.phpunit\.result\.cache$/,

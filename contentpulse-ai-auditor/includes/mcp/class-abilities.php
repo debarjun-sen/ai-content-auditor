@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Abilities {
 
-	const CATEGORY = 'ai-content-auditor';
+	const CATEGORY = 'contentpulse-ai-auditor';
 
 	/**
 	 * Hook in when the Abilities API exists.
@@ -41,8 +41,8 @@ class Abilities {
 		wp_register_ability_category(
 			self::CATEGORY,
 			array(
-				'label'       => __( 'AI Content Auditor', 'ai-content-auditor' ),
-				'description' => __( 'Audit site content for SEO, accessibility and stale content.', 'ai-content-auditor' ),
+				'label'       => __( 'ContentPulse AI Auditor', 'contentpulse-ai-auditor' ),
+				'description' => __( 'Audit site content for SEO, accessibility and stale content.', 'contentpulse-ai-auditor' ),
 			)
 		);
 	}

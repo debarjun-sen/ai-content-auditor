@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name:       AI Content Auditor – Demo Content
- * Description:       Companion plugin for AI Content Auditor. Seeds realistic posts and pages with deliberate SEO, accessibility, stale-content and prompt-injection issues, and removes them again with one click.
+ * Plugin Name:       ContentPulse AI Auditor – Demo Content
+ * Description:       Companion plugin for ContentPulse AI Auditor. Seeds realistic posts and pages with deliberate SEO, accessibility, stale-content and prompt-injection issues, and removes them again with one click.
  * Version:           1.0.0
  * Requires at least: 6.9
  * Requires PHP:      7.4
- * Requires Plugins:  ai-content-auditor
+ * Requires Plugins:  contentpulse-ai-auditor
  * Author:            Debarjun Sen
  * Author URI:        https://github.com/debarjun-sen
  * License:           GPL-2.0-or-later
- * Text Domain:       ai-content-auditor-demo
+ * Text Domain:       contentpulse-ai-auditor-demo
  *
  * @package AICA_Demo
  */
@@ -41,7 +41,7 @@ final class AICA_Demo {
 	 * Tools → AI Auditor Demo.
 	 */
 	public static function menu() {
-		add_management_page( __( 'AI Auditor Demo', 'ai-content-auditor-demo' ), __( 'AI Auditor Demo', 'ai-content-auditor-demo' ), 'manage_options', 'aica-demo', array( __CLASS__, 'render' ) );
+		add_management_page( __( 'AI Auditor Demo', 'contentpulse-ai-auditor-demo' ), __( 'AI Auditor Demo', 'contentpulse-ai-auditor-demo' ), 'manage_options', 'aica-demo', array( __CLASS__, 'render' ) );
 	}
 
 	/**
@@ -53,24 +53,24 @@ final class AICA_Demo {
 		$done = isset( $_GET['aica_demo'] ) ? sanitize_key( wp_unslash( $_GET['aica_demo'] ) ) : '';
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'AI Content Auditor — Demo content', 'ai-content-auditor-demo' ); ?></h1>
+			<h1><?php esc_html_e( 'ContentPulse AI Auditor — Demo content', 'contentpulse-ai-auditor-demo' ); ?></h1>
 			<?php if ( 'seeded' === $done ) : ?>
-				<div class="notice notice-success"><p><?php esc_html_e( 'Demo content created.', 'ai-content-auditor-demo' ); ?> <a href="<?php echo esc_url( admin_url( 'admin.php?page=ai-content-auditor' ) ); ?>"><?php esc_html_e( 'Open the Content Audit dashboard →', 'ai-content-auditor-demo' ); ?></a></p></div>
+				<div class="notice notice-success"><p><?php esc_html_e( 'Demo content created.', 'contentpulse-ai-auditor-demo' ); ?> <a href="<?php echo esc_url( admin_url( 'admin.php?page=contentpulse-ai-auditor' ) ); ?>"><?php esc_html_e( 'Open the Content Audit dashboard →', 'contentpulse-ai-auditor-demo' ); ?></a></p></div>
 			<?php elseif ( 'reset' === $done ) : ?>
-				<div class="notice notice-success"><p><?php esc_html_e( 'Demo content removed.', 'ai-content-auditor-demo' ); ?></p></div>
+				<div class="notice notice-success"><p><?php esc_html_e( 'Demo content removed.', 'contentpulse-ai-auditor-demo' ); ?></p></div>
 			<?php endif; ?>
-			<p style="max-width:70ch"><?php esc_html_e( 'Creates 8 posts and pages, each with deliberate problems the auditor should catch: thin and outdated posts, missing meta descriptions, images without alt text, skipped heading levels, vague links, broken internal links, untitled embeds — and one page with hidden prompt-injection text to show the safety guard at work. Old posts are back-dated so freshness checks have something to find.', 'ai-content-auditor-demo' ); ?></p>
-			<p><?php echo esc_html( sprintf( /* translators: %d: count */ _n( '%d demo item currently exists.', '%d demo items currently exist.', $count, 'ai-content-auditor-demo' ), $count ) ); ?></p>
+			<p style="max-width:70ch"><?php esc_html_e( 'Creates 8 posts and pages, each with deliberate problems the auditor should catch: thin and outdated posts, missing meta descriptions, images without alt text, skipped heading levels, vague links, broken internal links, untitled embeds — and one page with hidden prompt-injection text to show the safety guard at work. Old posts are back-dated so freshness checks have something to find.', 'contentpulse-ai-auditor-demo' ); ?></p>
+			<p><?php echo esc_html( sprintf( /* translators: %d: count */ _n( '%d demo item currently exists.', '%d demo items currently exist.', $count, 'contentpulse-ai-auditor-demo' ), $count ) ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block;margin-right:8px">
 				<?php wp_nonce_field( 'aica_demo_seed' ); ?>
 				<input type="hidden" name="action" value="aica_demo_seed" />
-				<?php submit_button( $count ? __( 'Recreate demo content', 'ai-content-auditor-demo' ) : __( 'Create demo content', 'ai-content-auditor-demo' ), 'primary', 'submit', false ); ?>
+				<?php submit_button( $count ? __( 'Recreate demo content', 'contentpulse-ai-auditor-demo' ) : __( 'Create demo content', 'contentpulse-ai-auditor-demo' ), 'primary', 'submit', false ); ?>
 			</form>
 			<?php if ( $count ) : ?>
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline-block">
 					<?php wp_nonce_field( 'aica_demo_reset' ); ?>
 					<input type="hidden" name="action" value="aica_demo_reset" />
-					<?php submit_button( __( 'Remove demo content', 'ai-content-auditor-demo' ), 'secondary', 'submit', false ); ?>
+					<?php submit_button( __( 'Remove demo content', 'contentpulse-ai-auditor-demo' ), 'secondary', 'submit', false ); ?>
 				</form>
 			<?php endif; ?>
 		</div>
@@ -82,7 +82,7 @@ final class AICA_Demo {
 	 */
 	public static function handle_seed() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Not allowed.', 'ai-content-auditor-demo' ), 403 );
+			wp_die( esc_html__( 'Not allowed.', 'contentpulse-ai-auditor-demo' ), 403 );
 		}
 		check_admin_referer( 'aica_demo_seed' );
 		self::reset();
@@ -96,7 +96,7 @@ final class AICA_Demo {
 	 */
 	public static function handle_reset() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Not allowed.', 'ai-content-auditor-demo' ), 403 );
+			wp_die( esc_html__( 'Not allowed.', 'contentpulse-ai-auditor-demo' ), 403 );
 		}
 		check_admin_referer( 'aica_demo_reset' );
 		self::reset();

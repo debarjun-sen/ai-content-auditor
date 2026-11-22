@@ -1,5 +1,5 @@
 /**
- * AI Content Auditor — admin dashboard.
+ * ContentPulse AI Auditor — admin dashboard.
  *
  * Vanilla JS, no build step. All untrusted strings (post titles, findings,
  * model output) are inserted with textContent; the summary renderer escapes
@@ -199,26 +199,26 @@
 	}
 
 	const LABELS = {
-		seo: __( 'SEO', 'ai-content-auditor' ),
-		accessibility: __( 'Accessibility', 'ai-content-auditor' ),
-		freshness: __( 'Freshness', 'ai-content-auditor' ),
-		security: __( 'Security', 'ai-content-auditor' ),
-		high: __( 'High', 'ai-content-auditor' ),
-		medium: __( 'Medium', 'ai-content-auditor' ),
-		low: __( 'Low', 'ai-content-auditor' ),
-		open: __( 'Open', 'ai-content-auditor' ),
-		fixed: __( 'Fixed', 'ai-content-auditor' ),
-		dismissed: __( 'Dismissed', 'ai-content-auditor' ),
-		running: __( 'Running', 'ai-content-auditor' ),
-		completed: __( 'Completed', 'ai-content-auditor' ),
-		failed: __( 'Failed', 'ai-content-auditor' ),
-		cancelled: __( 'Cancelled', 'ai-content-auditor' ),
-		budget_exhausted: __( 'Budget reached', 'ai-content-auditor' ),
-		ai: __( 'AI audit', 'ai-content-auditor' ),
-		quick: __( 'Quick scan', 'ai-content-auditor' ),
-		meta_description: __( 'Meta description', 'ai-content-auditor' ),
-		excerpt: __( 'Excerpt', 'ai-content-auditor' ),
-		image_alt: __( 'Image alt text', 'ai-content-auditor' ),
+		seo: __( 'SEO', 'contentpulse-ai-auditor' ),
+		accessibility: __( 'Accessibility', 'contentpulse-ai-auditor' ),
+		freshness: __( 'Freshness', 'contentpulse-ai-auditor' ),
+		security: __( 'Security', 'contentpulse-ai-auditor' ),
+		high: __( 'High', 'contentpulse-ai-auditor' ),
+		medium: __( 'Medium', 'contentpulse-ai-auditor' ),
+		low: __( 'Low', 'contentpulse-ai-auditor' ),
+		open: __( 'Open', 'contentpulse-ai-auditor' ),
+		fixed: __( 'Fixed', 'contentpulse-ai-auditor' ),
+		dismissed: __( 'Dismissed', 'contentpulse-ai-auditor' ),
+		running: __( 'Running', 'contentpulse-ai-auditor' ),
+		completed: __( 'Completed', 'contentpulse-ai-auditor' ),
+		failed: __( 'Failed', 'contentpulse-ai-auditor' ),
+		cancelled: __( 'Cancelled', 'contentpulse-ai-auditor' ),
+		budget_exhausted: __( 'Budget reached', 'contentpulse-ai-auditor' ),
+		ai: __( 'AI audit', 'contentpulse-ai-auditor' ),
+		quick: __( 'Quick scan', 'contentpulse-ai-auditor' ),
+		meta_description: __( 'Meta description', 'contentpulse-ai-auditor' ),
+		excerpt: __( 'Excerpt', 'contentpulse-ai-auditor' ),
+		image_alt: __( 'Image alt text', 'contentpulse-ai-auditor' ),
 	};
 	const CAT_ICON = { seo: 'search', accessibility: 'accessibility', freshness: 'clock', security: 'shield' };
 	const CATS = [ 'seo', 'accessibility', 'freshness', 'security' ];
@@ -231,9 +231,9 @@
 	const statusBadge = ( s ) => badge( s, LABELS[ s ] || s, s === 'running' ? 'refresh' : s === 'completed' ? 'check' : 'info' );
 	function sourceBadge( s ) {
 		if ( s === 'ai' ) {
-			return badge( 'ai', __( 'Claude', 'ai-content-auditor' ), 'sparkle' );
+			return badge( 'ai', __( 'Claude', 'contentpulse-ai-auditor' ), 'sparkle' );
 		}
-		return badge( s, s === 'mcp' ? __( 'MCP agent', 'ai-content-auditor' ) : __( 'Rule', 'ai-content-auditor' ), s === 'mcp' ? 'plug' : 'list' );
+		return badge( s, s === 'mcp' ? __( 'MCP agent', 'contentpulse-ai-auditor' ) : __( 'Rule', 'contentpulse-ai-auditor' ), s === 'mcp' ? 'plug' : 'list' );
 	}
 
 	function button( label, opts ) {
@@ -289,13 +289,13 @@
 				} )
 			);
 		}
-		t.append( button( '', { variant: 'ghost', icon: 'x', ariaLabel: __( 'Dismiss notification', 'ai-content-auditor' ), onClick: () => t.remove() } ) );
+		t.append( button( '', { variant: 'ghost', icon: 'x', ariaLabel: __( 'Dismiss notification', 'contentpulse-ai-auditor' ), onClick: () => t.remove() } ) );
 		toasts.append( t );
 		window.setTimeout( () => t.remove(), o.error ? 9000 : 6000 );
 	}
 
 	function errorMessage( e ) {
-		return ( e && e.message ) || __( 'Something went wrong.', 'ai-content-auditor' );
+		return ( e && e.message ) || __( 'Something went wrong.', 'contentpulse-ai-auditor' );
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -383,16 +383,16 @@
 		clear( headerActions );
 		const running = !! state.running;
 		headerActions.append(
-			button( __( 'Quick scan', 'ai-content-auditor' ), { icon: 'bolt', disabled: running, onClick: ( e ) => startScan( 'quick', e.currentTarget ) } ),
-			button( __( 'Run AI audit', 'ai-content-auditor' ), { icon: 'sparkle', variant: 'primary', disabled: running, onClick: ( e ) => startScan( 'ai', e.currentTarget ) } )
+			button( __( 'Quick scan', 'contentpulse-ai-auditor' ), { icon: 'bolt', disabled: running, onClick: ( e ) => startScan( 'quick', e.currentTarget ) } ),
+			button( __( 'Run AI audit', 'contentpulse-ai-auditor' ), { icon: 'sparkle', variant: 'primary', disabled: running, onClick: ( e ) => startScan( 'ai', e.currentTarget ) } )
 		);
 	}
 
 	async function startScan( mode, btn ) {
 		if ( mode === 'ai' && ! cfg.hasKey ) {
-			toast( __( 'Add your Claude API key in Settings first — or try a Quick scan, which needs no key.', 'ai-content-auditor' ), {
+			toast( __( 'Add your Claude API key in Settings first — or try a Quick scan, which needs no key.', 'contentpulse-ai-auditor' ), {
 				error: true,
-				action: { label: __( 'Open Settings', 'ai-content-auditor' ), run: () => selectTab( 'settings', true ) },
+				action: { label: __( 'Open Settings', 'contentpulse-ai-auditor' ), run: () => selectTab( 'settings', true ) },
 			} );
 			return;
 		}
@@ -400,7 +400,7 @@
 			try {
 				const scan = await api( '/scans', { method: 'POST', data: { mode } } );
 				state.running = { scan, events: [], cursor: 0, stats: null, errors: 0 };
-				announce( mode === 'ai' ? __( 'AI audit started.', 'ai-content-auditor' ) : __( 'Quick scan started.', 'ai-content-auditor' ) );
+				announce( mode === 'ai' ? __( 'AI audit started.', 'contentpulse-ai-auditor' ) : __( 'Quick scan started.', 'contentpulse-ai-auditor' ) );
 				selectTab( 'dashboard' );
 				drive();
 			} catch ( e ) {
@@ -458,8 +458,8 @@
 		}
 		if ( state.running && state.running.scan.is_terminal ) {
 			const s = state.running.scan;
-			announce( sprintf( __( 'Scan finished: %s.', 'ai-content-auditor' ), LABELS[ s.status ] || s.status ) );
-			toast( s.status === 'completed' ? __( 'Audit complete — your report is ready.', 'ai-content-auditor' ) : s.error || LABELS[ s.status ], { error: s.status === 'failed' } );
+			announce( sprintf( __( 'Scan finished: %s.', 'contentpulse-ai-auditor' ), LABELS[ s.status ] || s.status ) );
+			toast( s.status === 'completed' ? __( 'Audit complete — your report is ready.', 'contentpulse-ai-auditor' ) : s.error || LABELS[ s.status ], { error: s.status === 'failed' } );
 			state.running = null;
 			state.filters.scan_id = 0;
 			await loadDashboard();
@@ -530,7 +530,7 @@
 		const open = latest && latest.stats ? latest.stats.totals.open : 0;
 		el.hidden = ! open;
 		el.textContent = open ? String( open ) : '';
-		el.setAttribute( 'aria-label', sprintf( _n( '%d open finding', '%d open findings', open, 'ai-content-auditor' ), open ) );
+		el.setAttribute( 'aria-label', sprintf( _n( '%d open finding', '%d open findings', open, 'contentpulse-ai-auditor' ), open ) );
 	}
 
 	function renderDashboard() {
@@ -582,22 +582,22 @@
 			h(
 				'div',
 				null,
-				h( 'h2', null, __( 'Audit your content in minutes', 'ai-content-auditor' ) ),
-				h( 'p', null, __( 'Claude reads your posts and pages with a set of audit tools, confirms real problems, and writes ready-to-approve fixes. Nothing changes on your site until you click Apply.', 'ai-content-auditor' ) ),
+				h( 'h2', null, __( 'Audit your content in minutes', 'contentpulse-ai-auditor' ) ),
+				h( 'p', null, __( 'Claude reads your posts and pages with a set of audit tools, confirms real problems, and writes ready-to-approve fixes. Nothing changes on your site until you click Apply.', 'contentpulse-ai-auditor' ) ),
 				h(
 					'ol',
 					{ class: 'aica-steps' },
-					h( 'li', null, h( 'strong', null, __( 'Quick scan', 'ai-content-auditor' ) ), ' — ', __( 'instant rules-based check, no API key needed.', 'ai-content-auditor' ) ),
-					h( 'li', null, h( 'strong', null, __( 'AI audit', 'ai-content-auditor' ) ), ' — ', __( 'Claude verifies, prioritizes and drafts fixes. You watch it work live.', 'ai-content-auditor' ) ),
-					h( 'li', null, h( 'strong', null, __( 'Review & apply', 'ai-content-auditor' ) ), ' — ', __( 'approve fixes one by one, with undo.', 'ai-content-auditor' ) )
+					h( 'li', null, h( 'strong', null, __( 'Quick scan', 'contentpulse-ai-auditor' ) ), ' — ', __( 'instant rules-based check, no API key needed.', 'contentpulse-ai-auditor' ) ),
+					h( 'li', null, h( 'strong', null, __( 'AI audit', 'contentpulse-ai-auditor' ) ), ' — ', __( 'Claude verifies, prioritizes and drafts fixes. You watch it work live.', 'contentpulse-ai-auditor' ) ),
+					h( 'li', null, h( 'strong', null, __( 'Review & apply', 'contentpulse-ai-auditor' ) ), ' — ', __( 'approve fixes one by one, with undo.', 'contentpulse-ai-auditor' ) )
 				),
 				h(
 					'div',
 					{ class: 'aica-filters' },
-					button( __( 'Run AI audit', 'ai-content-auditor' ), { icon: 'sparkle', variant: 'primary', size: 'lg', onClick: ( e ) => startScan( 'ai', e.currentTarget ) } ),
-					button( __( 'Quick scan', 'ai-content-auditor' ), { icon: 'bolt', size: 'lg', onClick: ( e ) => startScan( 'quick', e.currentTarget ) } )
+					button( __( 'Run AI audit', 'contentpulse-ai-auditor' ), { icon: 'sparkle', variant: 'primary', size: 'lg', onClick: ( e ) => startScan( 'ai', e.currentTarget ) } ),
+					button( __( 'Quick scan', 'contentpulse-ai-auditor' ), { icon: 'bolt', size: 'lg', onClick: ( e ) => startScan( 'quick', e.currentTarget ) } )
 				),
-				cfg.demoActive ? h( 'p', { class: 'aica-small' }, __( 'Trying it out? ', 'ai-content-auditor' ), h( 'a', { href: cfg.demoUrl }, __( 'Load demo content with deliberate issues', 'ai-content-auditor' ) ), '.' ) : null
+				cfg.demoActive ? h( 'p', { class: 'aica-small' }, __( 'Trying it out? ', 'contentpulse-ai-auditor' ), h( 'a', { href: cfg.demoUrl }, __( 'Load demo content with deliberate issues', 'contentpulse-ai-auditor' ) ), '.' ) : null
 			),
 			emptyArt()
 		);
@@ -615,11 +615,11 @@
 		const r = 60;
 		const c = 2 * Math.PI * r;
 		const color = score >= 75 ? '#007a3d' : score >= 50 ? '#c27a00' : '#b32d2e';
-		const wrap = h( 'div', { class: 'aica-gauge', role: 'img', 'aria-label': sprintf( __( 'Content health score %1$d out of 100, grade %2$s', 'ai-content-auditor' ), score, grade ) } );
+		const wrap = h( 'div', { class: 'aica-gauge', role: 'img', 'aria-label': sprintf( __( 'Content health score %1$d out of 100, grade %2$s', 'contentpulse-ai-auditor' ), score, grade ) } );
 		wrap.innerHTML =
 			'<svg viewBox="0 0 148 148" aria-hidden="true"><circle class="aica-gauge__track" cx="74" cy="74" r="' + r + '" fill="none" stroke-width="12"/>' +
 			'<circle class="aica-gauge__value" cx="74" cy="74" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="12" stroke-linecap="round" stroke-dasharray="' + c.toFixed( 1 ) + '" stroke-dashoffset="' + c.toFixed( 1 ) + '"/></svg>';
-		wrap.append( h( 'div', { class: 'aica-gauge__label', 'aria-hidden': 'true' }, h( 'span', { class: 'aica-gauge__score' }, String( score ) ), h( 'span', { class: 'aica-gauge__grade' }, sprintf( __( 'Grade %s', 'ai-content-auditor' ), grade ) ) ) );
+		wrap.append( h( 'div', { class: 'aica-gauge__label', 'aria-hidden': 'true' }, h( 'span', { class: 'aica-gauge__score' }, String( score ) ), h( 'span', { class: 'aica-gauge__grade' }, sprintf( __( 'Grade %s', 'contentpulse-ai-auditor' ), grade ) ) ) );
 		window.requestAnimationFrame( () => {
 			const v = wrap.querySelector( '.aica-gauge__value' );
 			if ( v ) {
@@ -635,13 +635,13 @@
 		const meta = h(
 			'div',
 			{ class: 'aica-hero__meta' },
-			h( 'span', null, icon( 'clock', 'aica-icon--sm' ), sprintf( __( 'Audited %s', 'ai-content-auditor' ), ago( latest.finished_at || latest.created_at ) ) ),
+			h( 'span', null, icon( 'clock', 'aica-icon--sm' ), sprintf( __( 'Audited %s', 'contentpulse-ai-auditor' ), ago( latest.finished_at || latest.created_at ) ) ),
 			h( 'span', null, icon( latest.mode === 'ai' ? 'sparkle' : 'bolt', 'aica-icon--sm' ), latest.mode === 'ai' ? latest.model_label : LABELS.quick ),
-			h( 'span', null, icon( 'file', 'aica-icon--sm' ), sprintf( _n( '%d item', '%d items', latest.posts_scanned, 'ai-content-auditor' ), latest.posts_scanned ) ),
-			h( 'span', null, icon( 'flag', 'aica-icon--sm' ), sprintf( __( '%1$d open · %2$d fixed', 'ai-content-auditor' ), st.totals.open, st.totals.fixed ) ),
-			latest.mode === 'ai' ? h( 'span', null, icon( 'coins', 'aica-icon--sm' ), sprintf( __( '%1$s · %2$s tokens', 'ai-content-auditor' ), money( latest.cost_usd ), num( latest.tokens ) ) ) : null
+			h( 'span', null, icon( 'file', 'aica-icon--sm' ), sprintf( _n( '%d item', '%d items', latest.posts_scanned, 'contentpulse-ai-auditor' ), latest.posts_scanned ) ),
+			h( 'span', null, icon( 'flag', 'aica-icon--sm' ), sprintf( __( '%1$d open · %2$d fixed', 'contentpulse-ai-auditor' ), st.totals.open, st.totals.fixed ) ),
+			latest.mode === 'ai' ? h( 'span', null, icon( 'coins', 'aica-icon--sm' ), sprintf( __( '%1$s · %2$s tokens', 'contentpulse-ai-auditor' ), money( latest.cost_usd ), num( latest.tokens ) ) ) : null
 		);
-		const headline = st.score >= 90 ? __( 'Your content is in great shape', 'ai-content-auditor' ) : st.score >= 70 ? __( 'Good, with a few things to fix', 'ai-content-auditor' ) : st.score >= 45 ? __( 'Several issues need attention', 'ai-content-auditor' ) : __( 'Significant issues found', 'ai-content-auditor' );
+		const headline = st.score >= 90 ? __( 'Your content is in great shape', 'contentpulse-ai-auditor' ) : st.score >= 70 ? __( 'Good, with a few things to fix', 'contentpulse-ai-auditor' ) : st.score >= 45 ? __( 'Several issues need attention', 'contentpulse-ai-auditor' ) : __( 'Significant issues found', 'contentpulse-ai-auditor' );
 		return h(
 			'div',
 			{ class: 'aica-card aica-hero' },
@@ -654,12 +654,12 @@
 					null,
 					headline,
 					' ',
-					delta !== null && delta !== 0 ? h( 'span', { class: 'aica-delta aica-delta--' + ( delta > 0 ? 'up' : 'down' ) }, ( delta > 0 ? '▲ ' : '▼ ' ) + Math.abs( delta ), h( 'span', { class: 'screen-reader-text' }, __( ' points since the previous audit', 'ai-content-auditor' ) ) ) : null
+					delta !== null && delta !== 0 ? h( 'span', { class: 'aica-delta aica-delta--' + ( delta > 0 ? 'up' : 'down' ) }, ( delta > 0 ? '▲ ' : '▼ ' ) + Math.abs( delta ), h( 'span', { class: 'screen-reader-text' }, __( ' points since the previous audit', 'contentpulse-ai-auditor' ) ) ) : null
 				),
 				meta,
 				latest.summary ? markdown( latest.summary ) : null,
 				latest.error && latest.status !== 'completed' ? h( 'div', { class: 'aica-callout aica-callout--warn' }, icon( 'medium' ), h( 'p', null, latest.error ) ) : null,
-				h( 'div', { class: 'aica-filters' }, button( sprintf( __( 'Review %d open findings', 'ai-content-auditor' ), st.totals.open ), { variant: 'primary', icon: 'list', onClick: () => openFindings( {} ) } ) )
+				h( 'div', { class: 'aica-filters' }, button( sprintf( __( 'Review %d open findings', 'contentpulse-ai-auditor' ), st.totals.open ), { variant: 'primary', icon: 'list', onClick: () => openFindings( {} ) } ) )
 			)
 		);
 	}
@@ -667,17 +667,17 @@
 	function categoryCard( c, v ) {
 		const card = h(
 			'button',
-			{ type: 'button', class: 'aica-card aica-cat aica-cat--' + c, onClick: () => openFindings( { category: c } ), 'aria-label': sprintf( __( '%1$s: score %2$d, %3$d open findings. Show findings.', 'ai-content-auditor' ), LABELS[ c ], v.score, v.open ) },
+			{ type: 'button', class: 'aica-card aica-cat aica-cat--' + c, onClick: () => openFindings( { category: c } ), 'aria-label': sprintf( __( '%1$s: score %2$d, %3$d open findings. Show findings.', 'contentpulse-ai-auditor' ), LABELS[ c ], v.score, v.open ) },
 			h( 'div', { class: 'aica-cat__top' }, h( 'span', { class: 'aica-cat__icon' }, icon( CAT_ICON[ c ] ) ), h( 'span', { class: 'aica-cat__score' }, String( v.score ) ) ),
 			h( 'span', { class: 'aica-cat__name' }, LABELS[ c ] ),
 			h( 'div', { class: 'aica-bar', 'aria-hidden': 'true' }, h( 'span', { style: 'width:' + v.score + '%' } ) ),
 			h(
 				'div',
 				{ class: 'aica-cat__counts' },
-				v.open === 0 ? badge( 'fixed', __( 'All clear', 'ai-content-auditor' ), 'check' ) : null,
-				v.high ? badge( 'high', sprintf( __( '%d high', 'ai-content-auditor' ), v.high ), 'high' ) : null,
-				v.medium ? badge( 'medium', sprintf( __( '%d medium', 'ai-content-auditor' ), v.medium ), 'medium' ) : null,
-				v.low ? badge( 'low', sprintf( __( '%d low', 'ai-content-auditor' ), v.low ), 'low' ) : null
+				v.open === 0 ? badge( 'fixed', __( 'All clear', 'contentpulse-ai-auditor' ), 'check' ) : null,
+				v.high ? badge( 'high', sprintf( __( '%d high', 'contentpulse-ai-auditor' ), v.high ), 'high' ) : null,
+				v.medium ? badge( 'medium', sprintf( __( '%d medium', 'contentpulse-ai-auditor' ), v.medium ), 'medium' ) : null,
+				v.low ? badge( 'low', sprintf( __( '%d low', 'contentpulse-ai-auditor' ), v.low ), 'low' ) : null
 			)
 		);
 		return card;
@@ -688,15 +688,15 @@
 			'div',
 			{ class: 'aica-card aica-cat aica-cat--security', style: 'cursor:default' },
 			h( 'div', { class: 'aica-cat__top' }, h( 'span', { class: 'aica-cat__icon' }, icon( 'shield' ) ), h( 'span', { class: 'aica-cat__score' }, '✓' ) ),
-			h( 'span', { class: 'aica-cat__name' }, __( 'Injection guard', 'ai-content-auditor' ) ),
-			h( 'span', { class: 'aica-small aica-muted' }, __( 'No instructions aimed at AI systems were found in your content.', 'ai-content-auditor' ) )
+			h( 'span', { class: 'aica-cat__name' }, __( 'Injection guard', 'contentpulse-ai-auditor' ) ),
+			h( 'span', { class: 'aica-small aica-muted' }, __( 'No instructions aimed at AI systems were found in your content.', 'contentpulse-ai-auditor' ) )
 		);
 	}
 
 	function topIssuesCard( top ) {
-		const card = h( 'div', { class: 'aica-card' }, h( 'div', { class: 'aica-card__head' }, h( 'h3', { class: 'aica-card__title' }, icon( 'flag' ), __( 'Top priorities', 'ai-content-auditor' ) ), h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => openFindings( {} ) }, __( 'See all', 'ai-content-auditor' ) ) ) );
+		const card = h( 'div', { class: 'aica-card' }, h( 'div', { class: 'aica-card__head' }, h( 'h3', { class: 'aica-card__title' }, icon( 'flag' ), __( 'Top priorities', 'contentpulse-ai-auditor' ) ), h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => openFindings( {} ) }, __( 'See all', 'contentpulse-ai-auditor' ) ) ) );
 		if ( ! top.length ) {
-			card.append( h( 'div', { class: 'aica-empty--small' }, icon( 'check' ), h( 'p', null, __( 'No open findings. Nice work!', 'ai-content-auditor' ) ) ) );
+			card.append( h( 'div', { class: 'aica-empty--small' }, icon( 'check' ), h( 'p', null, __( 'No open findings. Nice work!', 'contentpulse-ai-auditor' ) ) ) );
 			return card;
 		}
 		const ul = h( 'ul', { class: 'aica-issues' } );
@@ -710,7 +710,7 @@
 						{ type: 'button', class: 'aica-issue-row', onClick: () => openFindings( {}, f.id ) },
 						sevBadge( f.severity ),
 						h( 'span', null, h( 'span', { class: 'aica-issue-row__title' }, f.title ), h( 'span', { class: 'aica-issue-row__post' }, LABELS[ f.category ] + ' · ' + f.post_title ) ),
-						f.fix ? badge( 'ai', __( 'Fix ready', 'ai-content-auditor' ), 'sparkle' ) : icon( 'chevron' )
+						f.fix ? badge( 'ai', __( 'Fix ready', 'contentpulse-ai-auditor' ), 'sparkle' ) : icon( 'chevron' )
 					)
 				)
 			)
@@ -720,14 +720,14 @@
 	}
 
 	function historyCard( history ) {
-		const card = h( 'div', { class: 'aica-card' }, h( 'div', { class: 'aica-card__head' }, h( 'h3', { class: 'aica-card__title' }, icon( 'clock' ), __( 'Audit history', 'ai-content-auditor' ) ) ) );
+		const card = h( 'div', { class: 'aica-card' }, h( 'div', { class: 'aica-card__head' }, h( 'h3', { class: 'aica-card__title' }, icon( 'clock' ), __( 'Audit history', 'contentpulse-ai-auditor' ) ) ) );
 		const tbody = h( 'tbody' );
 		history.forEach( ( s ) =>
 			tbody.append(
 				h(
 					'tr',
 					null,
-					h( 'td', null, h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => openFindings( { scan_id: s.id } ), 'aria-label': sprintf( __( 'Show findings of scan %d', 'ai-content-auditor' ), s.id ) }, ago( s.created_at ) ) ),
+					h( 'td', null, h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => openFindings( { scan_id: s.id } ), 'aria-label': sprintf( __( 'Show findings of scan %d', 'contentpulse-ai-auditor' ), s.id ) }, ago( s.created_at ) ) ),
 					h( 'td', null, s.mode === 'ai' ? s.model_label : LABELS.quick ),
 					h( 'td', null, statusBadge( s.status ) ),
 					h( 'td', { class: 'num' }, String( s.findings ) ),
@@ -739,7 +739,7 @@
 			h(
 				'div',
 				{ class: 'aica-table-wrap' },
-				h( 'table', { class: 'aica-table' }, h( 'thead', null, h( 'tr', null, h( 'th', { scope: 'col' }, __( 'When', 'ai-content-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Type', 'ai-content-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Status', 'ai-content-auditor' ) ), h( 'th', { scope: 'col', class: 'num' }, __( 'Findings', 'ai-content-auditor' ) ), h( 'th', { scope: 'col', class: 'num' }, __( 'Score', 'ai-content-auditor' ) ) ) ), tbody )
+				h( 'table', { class: 'aica-table' }, h( 'thead', null, h( 'tr', null, h( 'th', { scope: 'col' }, __( 'When', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Type', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Status', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col', class: 'num' }, __( 'Findings', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col', class: 'num' }, __( 'Score', 'contentpulse-ai-auditor' ) ) ) ), tbody )
 			)
 		);
 		return card;
@@ -775,19 +775,19 @@
 			h(
 				'div',
 				{ class: 'aica-card__head' },
-				h( 'h2', { class: 'aica-card__title' }, s.is_terminal ? icon( 'check' ) : h( 'span', { class: 'aica-spinner', 'aria-hidden': 'true', style: 'color:#3858e9' } ), isAi ? sprintf( __( 'Claude is auditing your site (%s)', 'ai-content-auditor' ), s.model_label ) : __( 'Running quick scan', 'ai-content-auditor' ) ),
-				s.is_terminal ? statusBadge( s.status ) : button( __( 'Cancel', 'ai-content-auditor' ), { icon: 'stop', variant: 'danger', size: 'sm', onClick: ( e ) => cancelScan( e.currentTarget ) } )
+				h( 'h2', { class: 'aica-card__title' }, s.is_terminal ? icon( 'check' ) : h( 'span', { class: 'aica-spinner', 'aria-hidden': 'true', style: 'color:#3858e9' } ), isAi ? sprintf( __( 'Claude is auditing your site (%s)', 'contentpulse-ai-auditor' ), s.model_label ) : __( 'Running quick scan', 'contentpulse-ai-auditor' ) ),
+				s.is_terminal ? statusBadge( s.status ) : button( __( 'Cancel', 'contentpulse-ai-auditor' ), { icon: 'stop', variant: 'danger', size: 'sm', onClick: ( e ) => cancelScan( e.currentTarget ) } )
 			),
-			h( 'div', { class: 'aica-progress' + ( isAi && ! s.is_terminal ? ' aica-progress--indeterminate' : '' ), role: 'progressbar', 'aria-label': __( 'Scan progress', 'ai-content-auditor' ), 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': isAi ? null : String( pct ) }, h( 'span', { style: 'width:' + pct + '%' } ) ),
+			h( 'div', { class: 'aica-progress' + ( isAi && ! s.is_terminal ? ' aica-progress--indeterminate' : '' ), role: 'progressbar', 'aria-label': __( 'Scan progress', 'contentpulse-ai-auditor' ), 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': isAi ? null : String( pct ) }, h( 'span', { style: 'width:' + pct + '%' } ) ),
 			h(
 				'div',
 				{ class: 'aica-run__stats' },
-				isAi ? stat( s.iterations + ' / ' + s.max_iterations, __( 'Agent turns', 'ai-content-auditor' ) ) : stat( String( s.posts_scanned ), __( 'Items checked', 'ai-content-auditor' ) ),
-				isAi ? stat( s.posts_scanned + ' / ' + s.max_posts, __( 'Posts read', 'ai-content-auditor' ) ) : stat( String( s.max_posts ), __( 'Max items', 'ai-content-auditor' ) ),
-				stat( String( found ), __( 'Findings', 'ai-content-auditor' ) ),
-				isAi ? stat( money( s.cost_usd ), sprintf( __( '%s tokens', 'ai-content-auditor' ), num( s.tokens ) ) ) : stat( '$0', __( 'No API cost', 'ai-content-auditor' ) )
+				isAi ? stat( s.iterations + ' / ' + s.max_iterations, __( 'Agent turns', 'contentpulse-ai-auditor' ) ) : stat( String( s.posts_scanned ), __( 'Items checked', 'contentpulse-ai-auditor' ) ),
+				isAi ? stat( s.posts_scanned + ' / ' + s.max_posts, __( 'Posts read', 'contentpulse-ai-auditor' ) ) : stat( String( s.max_posts ), __( 'Max items', 'contentpulse-ai-auditor' ) ),
+				stat( String( found ), __( 'Findings', 'contentpulse-ai-auditor' ) ),
+				isAi ? stat( money( s.cost_usd ), sprintf( __( '%s tokens', 'contentpulse-ai-auditor' ), num( s.tokens ) ) ) : stat( '$0', __( 'No API cost', 'contentpulse-ai-auditor' ) )
 			),
-			r.lastError ? h( 'div', { class: 'aica-callout aica-callout--warn', role: 'alert' }, icon( 'medium' ), h( 'p', null, r.lastError, r.paused ? ' ' : '', r.paused ? h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => { r.paused = false; r.errors = 0; drive(); } }, __( 'Resume', 'ai-content-auditor' ) ) : null ) ) : null,
+			r.lastError ? h( 'div', { class: 'aica-callout aica-callout--warn', role: 'alert' }, icon( 'medium' ), h( 'p', null, r.lastError, r.paused ? ' ' : '', r.paused ? h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => { r.paused = false; r.errors = 0; drive(); } }, __( 'Resume', 'contentpulse-ai-auditor' ) ) : null ) ) : null,
 			timeline( r.events.slice( -8 ), true )
 		);
 		clear( slot ).append( card );
@@ -802,13 +802,13 @@
 
 	function timeline( events, compact ) {
 		if ( ! events.length ) {
-			return h( 'p', { class: 'aica-muted' }, __( 'Waiting for the first step…', 'ai-content-auditor' ) );
+			return h( 'p', { class: 'aica-muted' }, __( 'Waiting for the first step…', 'contentpulse-ai-auditor' ) );
 		}
-		const ol = h( 'ol', { class: 'aica-timeline', 'aria-label': __( 'Agent activity', 'ai-content-auditor' ) } );
+		const ol = h( 'ol', { class: 'aica-timeline', 'aria-label': __( 'Agent activity', 'contentpulse-ai-auditor' ) } );
 		events.forEach( ( e ) => {
 			const body = h( 'div', { class: 'aica-event__body' }, e.summary );
 			if ( ! compact && e.type === 'tool_call' && e.payload && e.payload.input ) {
-				body.append( h( 'details', null, h( 'summary', null, sprintf( __( 'Tool input · %s', 'ai-content-auditor' ), e.tool ) ), h( 'pre', null, JSON.stringify( e.payload.input, null, 2 ) ) ) );
+				body.append( h( 'details', null, h( 'summary', null, sprintf( __( 'Tool input · %s', 'contentpulse-ai-auditor' ), e.tool ) ), h( 'pre', null, JSON.stringify( e.payload.input, null, 2 ) ) ) );
 			}
 			ol.append( h( 'li', { class: 'aica-event aica-event--' + e.type + ( e.isNew ? ' aica-event--new' : '' ) }, h( 'span', { class: 'aica-event__dot' }, icon( EVENT_ICON[ e.type ] || 'info', 'aica-icon--sm' ) ), body, h( 'time', { class: 'aica-event__time' }, clock( e.created_at ) ) ) );
 		} );
@@ -858,13 +858,13 @@
 		const p = clear( panels.findings );
 		const scan = state.findings.scan;
 		if ( ! scan ) {
-			p.append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'search' ), h( 'p', null, __( 'No audits yet. Run a Quick scan or an AI audit to see findings here.', 'ai-content-auditor' ) ) ) );
+			p.append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'search' ), h( 'p', null, __( 'No audits yet. Run a Quick scan or an AI audit to see findings here.', 'contentpulse-ai-auditor' ) ) ) );
 			return;
 		}
 		const cats = scan.stats.categories;
 		const f = state.filters;
 
-		const seg = h( 'div', { class: 'aica-segmented', role: 'group', 'aria-label': __( 'Filter by category', 'ai-content-auditor' ) } );
+		const seg = h( 'div', { class: 'aica-segmented', role: 'group', 'aria-label': __( 'Filter by category', 'contentpulse-ai-auditor' ) } );
 		[ '', ...CATS ].forEach( ( c ) => {
 			const count = c ? cats[ c ].total : scan.stats.totals.total;
 			if ( c === 'security' && ! count ) {
@@ -875,7 +875,7 @@
 					'button',
 					{ type: 'button', 'aria-pressed': f.category === c ? 'true' : 'false', onClick: () => { f.category = c; loadFindings( true ); } },
 					c ? icon( CAT_ICON[ c ], 'aica-icon--sm' ) : null,
-					c ? LABELS[ c ] : __( 'All', 'ai-content-auditor' ),
+					c ? LABELS[ c ] : __( 'All', 'contentpulse-ai-auditor' ),
 					h( 'span', { class: 'aica-count' }, String( count ) )
 				)
 			);
@@ -890,7 +890,7 @@
 			type: 'search',
 			id: 'aica-f-search',
 			value: f.search,
-			placeholder: __( 'Search findings', 'ai-content-auditor' ),
+			placeholder: __( 'Search findings', 'contentpulse-ai-auditor' ),
 			onInput: ( e ) => {
 				window.clearTimeout( searchTimer );
 				searchTimer = window.setTimeout( () => { f.search = e.target.value; loadFindings( true ).then( () => { const el = document.getElementById( 'aica-f-search' ); if ( el ) { el.focus(); el.setSelectionRange( el.value.length, el.value.length ); } } ); }, 350 );
@@ -905,23 +905,23 @@
 				h(
 					'div',
 					{ class: 'aica-filters' },
-					select( 'aica-f-sev', __( 'Severity', 'ai-content-auditor' ), 'severity', [ [ '', __( 'Any severity', 'ai-content-auditor' ) ], [ 'high', LABELS.high ], [ 'medium', LABELS.medium ], [ 'low', LABELS.low ] ] ),
-					select( 'aica-f-status', __( 'Status', 'ai-content-auditor' ), 'status', [ [ 'open', LABELS.open ], [ 'fixed', LABELS.fixed ], [ 'dismissed', LABELS.dismissed ], [ '', __( 'Any status', 'ai-content-auditor' ) ] ] ),
-					h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-f-search' }, __( 'Search', 'ai-content-auditor' ) ), search )
+					select( 'aica-f-sev', __( 'Severity', 'contentpulse-ai-auditor' ), 'severity', [ [ '', __( 'Any severity', 'contentpulse-ai-auditor' ) ], [ 'high', LABELS.high ], [ 'medium', LABELS.medium ], [ 'low', LABELS.low ] ] ),
+					select( 'aica-f-status', __( 'Status', 'contentpulse-ai-auditor' ), 'status', [ [ 'open', LABELS.open ], [ 'fixed', LABELS.fixed ], [ 'dismissed', LABELS.dismissed ], [ '', __( 'Any status', 'contentpulse-ai-auditor' ) ] ] ),
+					h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-f-search' }, __( 'Search', 'contentpulse-ai-auditor' ) ), search )
 				)
 			),
 			h(
 				'p',
 				{ class: 'aica-muted aica-small', role: 'status' },
-				sprintf( _n( '%d finding', '%d findings', state.findings.total, 'ai-content-auditor' ), state.findings.total ),
+				sprintf( _n( '%d finding', '%d findings', state.findings.total, 'contentpulse-ai-auditor' ), state.findings.total ),
 				' · ',
-				sprintf( __( '%1$s from %2$s', 'ai-content-auditor' ), scan.mode === 'ai' ? scan.model_label : LABELS[ scan.mode ] || scan.mode, ago( scan.created_at ) ),
-				f.scan_id ? [ ' · ', h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => { f.scan_id = 0; loadFindings( true ); } }, __( 'Show latest audit', 'ai-content-auditor' ) ) ] : null
+				sprintf( __( '%1$s from %2$s', 'contentpulse-ai-auditor' ), scan.mode === 'ai' ? scan.model_label : LABELS[ scan.mode ] || scan.mode, ago( scan.created_at ) ),
+				f.scan_id ? [ ' · ', h( 'button', { type: 'button', class: 'aica-link-btn', onClick: () => { f.scan_id = 0; loadFindings( true ); } }, __( 'Show latest audit', 'contentpulse-ai-auditor' ) ) ] : null
 			)
 		);
 
 		if ( ! state.findings.items.length ) {
-			p.append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'check' ), h( 'p', null, f.status === 'open' ? __( 'No open findings match these filters.', 'ai-content-auditor' ) : __( 'No findings match these filters.', 'ai-content-auditor' ) ) ) );
+			p.append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'check' ), h( 'p', null, f.status === 'open' ? __( 'No open findings match these filters.', 'contentpulse-ai-auditor' ) : __( 'No findings match these filters.', 'contentpulse-ai-auditor' ) ) ) );
 			return;
 		}
 
@@ -930,7 +930,7 @@
 		p.append( list );
 
 		if ( state.findings.items.length < state.findings.total ) {
-			p.append( h( 'div', { style: 'text-align:center;margin-top:16px' }, button( __( 'Load more', 'ai-content-auditor' ), { onClick: ( e ) => busy( e.currentTarget, () => { state.findings.page++; return loadFindings( false ); } ) } ) ) );
+			p.append( h( 'div', { style: 'text-align:center;margin-top:16px' }, button( __( 'Load more', 'contentpulse-ai-auditor' ), { onClick: ( e ) => busy( e.currentTarget, () => { state.findings.page++; return loadFindings( false ); } ) } ) ) );
 		}
 
 		if ( state.focusFinding ) {
@@ -968,7 +968,7 @@
 			h(
 				'div',
 				null,
-				h( 'div', { class: 'aica-finding__badges' }, sevBadge( item.severity ), catBadge( item.category ), sourceBadge( item.source ), item.status !== 'open' ? badge( item.status, LABELS[ item.status ], item.status === 'fixed' ? 'check' : 'dismiss' ) : null, item.fix && item.status === 'open' ? badge( 'ai', __( 'Fix ready', 'ai-content-auditor' ), 'sparkle' ) : null ),
+				h( 'div', { class: 'aica-finding__badges' }, sevBadge( item.severity ), catBadge( item.category ), sourceBadge( item.source ), item.status !== 'open' ? badge( item.status, LABELS[ item.status ], item.status === 'fixed' ? 'check' : 'dismiss' ) : null, item.fix && item.status === 'open' ? badge( 'ai', __( 'Fix ready', 'contentpulse-ai-auditor' ), 'sparkle' ) : null ),
 				h( 'h3', { class: 'aica-finding__title' }, item.title ),
 				h( 'p', { class: 'aica-finding__post' }, ( item.post_type ? item.post_type + ': ' : '' ) + item.post_title )
 			),
@@ -981,25 +981,25 @@
 
 		const body = h( 'div', { class: 'aica-finding__body', id: bodyId } );
 		if ( item.detail ) {
-			body.append( h( 'h4', null, __( 'What we found', 'ai-content-auditor' ) ), h( 'p', null, item.detail ) );
+			body.append( h( 'h4', null, __( 'What we found', 'contentpulse-ai-auditor' ) ), h( 'p', null, item.detail ) );
 		}
 		if ( item.recommendation ) {
-			body.append( h( 'h4', null, __( 'How to fix it', 'ai-content-auditor' ) ), h( 'p', null, item.recommendation ) );
+			body.append( h( 'h4', null, __( 'How to fix it', 'contentpulse-ai-auditor' ) ), h( 'p', null, item.recommendation ) );
 		}
 
 		let editor = null;
 		if ( item.fix ) {
-			body.append( h( 'h4', null, sprintf( __( 'Suggested fix · %s', 'ai-content-auditor' ), LABELS[ item.fix.field ] || item.fix.field ) ) );
-			const before = item.fix.current ? h( 'span', null, item.fix.current ) : h( 'span', { class: 'aica-diff__empty' }, __( '(empty)', 'ai-content-auditor' ) );
+			body.append( h( 'h4', null, sprintf( __( 'Suggested fix · %s', 'contentpulse-ai-auditor' ), LABELS[ item.fix.field ] || item.fix.field ) ) );
+			const before = item.fix.current ? h( 'span', null, item.fix.current ) : h( 'span', { class: 'aica-diff__empty' }, __( '(empty)', 'contentpulse-ai-auditor' ) );
 			let after;
 			if ( item.status === 'open' ) {
 				const max = item.fix.field === 'image_alt' ? 250 : item.fix.field === 'excerpt' ? 600 : 320;
 				const counter = h( 'span', { class: 'aica-charcount', 'aria-live': 'polite' } );
-				editor = h( 'textarea', { id: 'aica-fix-' + item.id, maxlength: String( max ), 'aria-describedby': 'aica-fix-' + item.id + '-count', onInput: () => ( counter.textContent = sprintf( __( '%d characters', 'ai-content-auditor' ), editor.value.length ) ) } );
+				editor = h( 'textarea', { id: 'aica-fix-' + item.id, maxlength: String( max ), 'aria-describedby': 'aica-fix-' + item.id + '-count', onInput: () => ( counter.textContent = sprintf( __( '%d characters', 'contentpulse-ai-auditor' ), editor.value.length ) ) } );
 				editor.value = item.fix.value;
 				counter.id = 'aica-fix-' + item.id + '-count';
-				counter.textContent = sprintf( __( '%d characters', 'ai-content-auditor' ), item.fix.value.length );
-				after = h( 'div', null, h( 'label', { class: 'screen-reader-text', for: 'aica-fix-' + item.id }, __( 'Suggested value (editable)', 'ai-content-auditor' ) ), editor, counter );
+				counter.textContent = sprintf( __( '%d characters', 'contentpulse-ai-auditor' ), item.fix.value.length );
+				after = h( 'div', null, h( 'label', { class: 'screen-reader-text', for: 'aica-fix-' + item.id }, __( 'Suggested value (editable)', 'contentpulse-ai-auditor' ) ), editor, counter );
 			} else {
 				after = h( 'span', null, item.fix.value );
 			}
@@ -1007,33 +1007,33 @@
 				h(
 					'div',
 					{ class: 'aica-diff' },
-					h( 'div', { class: 'aica-diff__side aica-diff__side--before' }, h( 'div', { class: 'aica-diff__label' }, icon( 'x', 'aica-icon--sm' ), __( 'Current', 'ai-content-auditor' ) ), before ),
-					h( 'div', { class: 'aica-diff__side aica-diff__side--after' }, h( 'div', { class: 'aica-diff__label' }, icon( 'check', 'aica-icon--sm' ), item.status === 'open' ? __( 'Suggested — you can edit before applying', 'ai-content-auditor' ) : __( 'Applied value', 'ai-content-auditor' ) ), after )
+					h( 'div', { class: 'aica-diff__side aica-diff__side--before' }, h( 'div', { class: 'aica-diff__label' }, icon( 'x', 'aica-icon--sm' ), __( 'Current', 'contentpulse-ai-auditor' ) ), before ),
+					h( 'div', { class: 'aica-diff__side aica-diff__side--after' }, h( 'div', { class: 'aica-diff__label' }, icon( 'check', 'aica-icon--sm' ), item.status === 'open' ? __( 'Suggested — you can edit before applying', 'contentpulse-ai-auditor' ) : __( 'Applied value', 'contentpulse-ai-auditor' ) ), after )
 				)
 			);
 			if ( item.fix.field === 'image_alt' && item.fix.target ) {
-				body.append( h( 'p', { class: 'aica-small aica-muted', style: 'margin-top:6px' }, sprintf( __( 'Image: %s', 'ai-content-auditor' ), item.fix.target.split( '/' ).pop() ) ) );
+				body.append( h( 'p', { class: 'aica-small aica-muted', style: 'margin-top:6px' }, sprintf( __( 'Image: %s', 'contentpulse-ai-auditor' ), item.fix.target.split( '/' ).pop() ) ) );
 			}
 		}
 
 		const actions = h( 'div', { class: 'aica-finding__actions' } );
 		if ( item.status === 'open' && item.fix ) {
-			actions.append( button( __( 'Apply fix', 'ai-content-auditor' ), { icon: 'check', variant: 'primary', onClick: ( e ) => confirmApply( item, editor ? editor.value : item.fix.value, e.currentTarget ) } ) );
+			actions.append( button( __( 'Apply fix', 'contentpulse-ai-auditor' ), { icon: 'check', variant: 'primary', onClick: ( e ) => confirmApply( item, editor ? editor.value : item.fix.value, e.currentTarget ) } ) );
 		}
 		if ( item.status === 'fixed' && item.can_undo ) {
-			actions.append( button( __( 'Undo fix', 'ai-content-auditor' ), { icon: 'undo', onClick: ( e ) => findingAction( item, 'undo', e.currentTarget ) } ) );
+			actions.append( button( __( 'Undo fix', 'contentpulse-ai-auditor' ), { icon: 'undo', onClick: ( e ) => findingAction( item, 'undo', e.currentTarget ) } ) );
 		}
 		if ( item.status === 'open' ) {
-			actions.append( button( __( 'Dismiss', 'ai-content-auditor' ), { icon: 'dismiss', onClick: ( e ) => findingAction( item, 'dismiss', e.currentTarget ) } ) );
+			actions.append( button( __( 'Dismiss', 'contentpulse-ai-auditor' ), { icon: 'dismiss', onClick: ( e ) => findingAction( item, 'dismiss', e.currentTarget ) } ) );
 		}
 		if ( item.status === 'dismissed' ) {
-			actions.append( button( __( 'Reopen', 'ai-content-auditor' ), { icon: 'refresh', onClick: ( e ) => findingAction( item, 'reopen', e.currentTarget ) } ) );
+			actions.append( button( __( 'Reopen', 'contentpulse-ai-auditor' ), { icon: 'refresh', onClick: ( e ) => findingAction( item, 'reopen', e.currentTarget ) } ) );
 		}
 		if ( item.edit_url ) {
-			actions.append( h( 'a', { class: 'aica-btn aica-btn--ghost', href: item.edit_url }, icon( 'edit' ), __( 'Edit post', 'ai-content-auditor' ) ) );
+			actions.append( h( 'a', { class: 'aica-btn aica-btn--ghost', href: item.edit_url }, icon( 'edit' ), __( 'Edit post', 'contentpulse-ai-auditor' ) ) );
 		}
 		if ( item.view_url ) {
-			actions.append( h( 'a', { class: 'aica-btn aica-btn--ghost', href: item.view_url, target: '_blank', rel: 'noopener' }, icon( 'external' ), __( 'View', 'ai-content-auditor' ), h( 'span', { class: 'screen-reader-text' }, __( '(opens in a new tab)', 'ai-content-auditor' ) ) ) );
+			actions.append( h( 'a', { class: 'aica-btn aica-btn--ghost', href: item.view_url, target: '_blank', rel: 'noopener' }, icon( 'external' ), __( 'View', 'contentpulse-ai-auditor' ), h( 'span', { class: 'screen-reader-text' }, __( '(opens in a new tab)', 'contentpulse-ai-auditor' ) ) ) );
 		}
 		body.append( actions );
 		article.append( body );
@@ -1051,14 +1051,14 @@
 			h(
 				'div',
 				{ class: 'aica-dialog__inner' },
-				h( 'h2', { id: 'aica-dlg-title' }, __( 'Apply this fix?', 'ai-content-auditor' ) ),
-				h( 'p', null, sprintf( __( 'This updates the %1$s of “%2$s”. A revision is saved and you can undo it from this screen.', 'ai-content-auditor' ), ( LABELS[ item.fix.field ] || item.fix.field ).toLowerCase(), item.post_title ) ),
-				h( 'div', { class: 'aica-diff' }, h( 'div', { class: 'aica-diff__side aica-diff__side--before' }, h( 'div', { class: 'aica-diff__label' }, __( 'Current', 'ai-content-auditor' ) ), item.fix.current || h( 'span', { class: 'aica-diff__empty' }, __( '(empty)', 'ai-content-auditor' ) ) ), h( 'div', { class: 'aica-diff__side aica-diff__side--after' }, h( 'div', { class: 'aica-diff__label' }, __( 'New', 'ai-content-auditor' ) ), value ) ),
+				h( 'h2', { id: 'aica-dlg-title' }, __( 'Apply this fix?', 'contentpulse-ai-auditor' ) ),
+				h( 'p', null, sprintf( __( 'This updates the %1$s of “%2$s”. A revision is saved and you can undo it from this screen.', 'contentpulse-ai-auditor' ), ( LABELS[ item.fix.field ] || item.fix.field ).toLowerCase(), item.post_title ) ),
+				h( 'div', { class: 'aica-diff' }, h( 'div', { class: 'aica-diff__side aica-diff__side--before' }, h( 'div', { class: 'aica-diff__label' }, __( 'Current', 'contentpulse-ai-auditor' ) ), item.fix.current || h( 'span', { class: 'aica-diff__empty' }, __( '(empty)', 'contentpulse-ai-auditor' ) ) ), h( 'div', { class: 'aica-diff__side aica-diff__side--after' }, h( 'div', { class: 'aica-diff__label' }, __( 'New', 'contentpulse-ai-auditor' ) ), value ) ),
 				h(
 					'div',
 					{ class: 'aica-dialog__actions' },
-					button( __( 'Cancel', 'ai-content-auditor' ), { onClick: close } ),
-					button( __( 'Apply fix', 'ai-content-auditor' ), {
+					button( __( 'Cancel', 'contentpulse-ai-auditor' ), { onClick: close } ),
+					button( __( 'Apply fix', 'contentpulse-ai-auditor' ), {
 						variant: 'primary',
 						icon: 'check',
 						onClick: async ( e ) => {
@@ -1088,9 +1088,9 @@
 				if ( state.findings.scan ) {
 					state.findings.scan.stats = res.stats;
 				}
-				const msgs = { apply: __( 'Fix applied.', 'ai-content-auditor' ), undo: __( 'Fix undone.', 'ai-content-auditor' ), dismiss: __( 'Finding dismissed.', 'ai-content-auditor' ), reopen: __( 'Finding reopened.', 'ai-content-auditor' ) };
-				toast( msgs[ action ], action === 'apply' ? { action: { label: __( 'Undo', 'ai-content-auditor' ), run: () => findingAction( res.finding, 'undo' ) } } : action === 'dismiss' ? { action: { label: __( 'Undo', 'ai-content-auditor' ), run: () => findingAction( res.finding, 'reopen' ) } } : {} );
-				announce( msgs[ action ] + ' ' + sprintf( __( 'Health score is now %d.', 'ai-content-auditor' ), res.stats.score ) );
+				const msgs = { apply: __( 'Fix applied.', 'contentpulse-ai-auditor' ), undo: __( 'Fix undone.', 'contentpulse-ai-auditor' ), dismiss: __( 'Finding dismissed.', 'contentpulse-ai-auditor' ), reopen: __( 'Finding reopened.', 'contentpulse-ai-auditor' ) };
+				toast( msgs[ action ], action === 'apply' ? { action: { label: __( 'Undo', 'contentpulse-ai-auditor' ), run: () => findingAction( res.finding, 'undo' ) } } : action === 'dismiss' ? { action: { label: __( 'Undo', 'contentpulse-ai-auditor' ), run: () => findingAction( res.finding, 'reopen' ) } } : {} );
+				announce( msgs[ action ] + ' ' + sprintf( __( 'Health score is now %d.', 'contentpulse-ai-auditor' ), res.stats.score ) );
 				renderFindings();
 				const head = document.getElementById( 'aica-finding-' + item.id + '-head' );
 				if ( head ) {
@@ -1114,7 +1114,7 @@
 		const history = ( state.dashboard && state.dashboard.history ) || [];
 		const id = state.activityScan || ( state.running ? state.running.scan.id : history[ 0 ] && history[ 0 ].id );
 		if ( ! id ) {
-			clear( p ).append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'message' ), h( 'p', null, __( 'Agent activity appears here once you run an audit — every tool call Claude makes, in order.', 'ai-content-auditor' ) ) ) );
+			clear( p ).append( h( 'div', { class: 'aica-card aica-empty--small' }, icon( 'message' ), h( 'p', null, __( 'Agent activity appears here once you run an audit — every tool call Claude makes, in order.', 'contentpulse-ai-auditor' ) ) ) );
 			return;
 		}
 		let events;
@@ -1145,10 +1145,10 @@
 				h(
 					'div',
 					{ class: 'aica-card__head' },
-					h( 'h2', { class: 'aica-card__title' }, icon( 'tool' ), __( 'Agent activity', 'ai-content-auditor' ), ' ', statusBadge( scan.status ) ),
-					h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-activity-scan' }, __( 'Scan', 'ai-content-auditor' ) ), picker )
+					h( 'h2', { class: 'aica-card__title' }, icon( 'tool' ), __( 'Agent activity', 'contentpulse-ai-auditor' ), ' ', statusBadge( scan.status ) ),
+					h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-activity-scan' }, __( 'Scan', 'contentpulse-ai-auditor' ) ), picker )
 				),
-				h( 'p', { class: 'aica-muted aica-small' }, scan.mode === 'ai' ? sprintf( __( '%1$d tool calls over %2$d turns · %3$s tokens (%4$s cached) · %5$s', 'ai-content-auditor' ), calls, scan.iterations, num( scan.tokens ), num( scan.cache_read ), money( scan.cost_usd ) ) : sprintf( __( '%d items checked by rules', 'ai-content-auditor' ), scan.posts_scanned ) ),
+				h( 'p', { class: 'aica-muted aica-small' }, scan.mode === 'ai' ? sprintf( __( '%1$d tool calls over %2$d turns · %3$s tokens (%4$s cached) · %5$s', 'contentpulse-ai-auditor' ), calls, scan.iterations, num( scan.tokens ), num( scan.cache_read ), money( scan.cost_usd ) ) : sprintf( __( '%d items checked by rules', 'contentpulse-ai-auditor' ), scan.posts_scanned ) ),
 				timeline( events, false )
 			)
 		);
@@ -1160,16 +1160,16 @@
 
 	function codeBlock( text, label ) {
 		const pre = h( 'pre', { tabindex: '0', 'aria-label': label }, text );
-		const copy = button( __( 'Copy', 'ai-content-auditor' ), {
+		const copy = button( __( 'Copy', 'contentpulse-ai-auditor' ), {
 			size: 'sm',
 			icon: 'copy',
 			onClick: async ( e ) => {
 				try {
 					await navigator.clipboard.writeText( pre.textContent );
-					e.currentTarget.lastChild.textContent = __( 'Copied', 'ai-content-auditor' );
-					announce( __( 'Copied to clipboard.', 'ai-content-auditor' ) );
+					e.currentTarget.lastChild.textContent = __( 'Copied', 'contentpulse-ai-auditor' );
+					announce( __( 'Copied to clipboard.', 'contentpulse-ai-auditor' ) );
 				} catch ( err ) {
-					toast( __( 'Copy failed — select the text manually.', 'ai-content-auditor' ), { error: true } );
+					toast( __( 'Copy failed — select the text manually.', 'contentpulse-ai-auditor' ), { error: true } );
 				}
 			},
 		} );
@@ -1182,14 +1182,14 @@
 		const snippets = h( 'div', { class: 'aica-stack' } );
 		const renderSnippets = () => {
 			clear( snippets ).append(
-				h( 'h3', null, __( 'Claude Code', 'ai-content-auditor' ) ),
-				codeBlock( 'claude mcp add --transport http content-auditor ' + cfg.mcpUrl + ' \\\n  --header "Authorization: Basic ' + auth.value + '"', __( 'Claude Code command', 'ai-content-auditor' ) ),
-				h( 'h3', null, __( 'Claude Desktop (claude_desktop_config.json)', 'ai-content-auditor' ) ),
+				h( 'h3', null, __( 'Claude Code', 'contentpulse-ai-auditor' ) ),
+				codeBlock( 'claude mcp add --transport http content-auditor ' + cfg.mcpUrl + ' \\\n  --header "Authorization: Basic ' + auth.value + '"', __( 'Claude Code command', 'contentpulse-ai-auditor' ) ),
+				h( 'h3', null, __( 'Claude Desktop (claude_desktop_config.json)', 'contentpulse-ai-auditor' ) ),
 				codeBlock(
 					JSON.stringify( { mcpServers: { 'content-auditor': { command: 'npx', args: [ '-y', 'mcp-remote', cfg.mcpUrl, '--header', 'Authorization:${AUTH}' ], env: { AUTH: 'Basic ' + auth.value } } } }, null, 2 ),
-					__( 'Claude Desktop configuration', 'ai-content-auditor' )
+					__( 'Claude Desktop configuration', 'contentpulse-ai-auditor' )
 				),
-				h( 'p', { class: 'aica-small aica-muted' }, __( 'Then ask Claude: “Audit my site for accessibility issues and record what you find.” Findings from external agents show up in your Findings tab.', 'ai-content-auditor' ) )
+				h( 'p', { class: 'aica-small aica-muted' }, __( 'Then ask Claude: “Audit my site for accessibility issues and record what you find.” Findings from external agents show up in your Findings tab.', 'contentpulse-ai-auditor' ) )
 			);
 		};
 		renderSnippets();
@@ -1205,7 +1205,7 @@
 					null,
 					h( 'td', null, h( 'code', null, t.name ) ),
 					h( 'td', null, t.description ),
-					h( 'td', null, t.destructive ? badge( cfg.mcpAllowFixes ? 'medium' : 'dismissed', cfg.mcpAllowFixes ? __( 'Writes content', 'ai-content-auditor' ) : __( 'Disabled', 'ai-content-auditor' ), 'edit' ) : t.readonly ? badge( 'fixed', __( 'Read-only', 'ai-content-auditor' ), 'check' ) : badge( 'low', __( 'Writes findings only', 'ai-content-auditor' ), 'flag' ) )
+					h( 'td', null, t.destructive ? badge( cfg.mcpAllowFixes ? 'medium' : 'dismissed', cfg.mcpAllowFixes ? __( 'Writes content', 'contentpulse-ai-auditor' ) : __( 'Disabled', 'contentpulse-ai-auditor' ), 'edit' ) : t.readonly ? badge( 'fixed', __( 'Read-only', 'contentpulse-ai-auditor' ), 'check' ) : badge( 'low', __( 'Writes findings only', 'contentpulse-ai-auditor' ), 'flag' ) )
 				)
 			)
 		);
@@ -1217,28 +1217,28 @@
 				h(
 					'div',
 					{ class: 'aica-card aica-stack' },
-					h( 'h2', { class: 'aica-card__title' }, icon( 'plug' ), __( 'Use these audit tools from any MCP client', 'ai-content-auditor' ) ),
-					h( 'p', null, h( 'span', { class: 'aica-status-dot' + ( cfg.mcpEnabled ? ' aica-status-dot--on' : '' ), 'aria-hidden': 'true' } ), ' ', cfg.mcpEnabled ? __( 'MCP endpoint is enabled.', 'ai-content-auditor' ) : __( 'MCP endpoint is disabled.', 'ai-content-auditor' ), ' ', ! cfg.mcpEnabled ? h( 'a', { href: cfg.settingsUrl }, __( 'Enable it in Settings', 'ai-content-auditor' ) ) : null ),
-					codeBlock( cfg.mcpUrl, __( 'MCP endpoint URL', 'ai-content-auditor' ) ),
+					h( 'h2', { class: 'aica-card__title' }, icon( 'plug' ), __( 'Use these audit tools from any MCP client', 'contentpulse-ai-auditor' ) ),
+					h( 'p', null, h( 'span', { class: 'aica-status-dot' + ( cfg.mcpEnabled ? ' aica-status-dot--on' : '' ), 'aria-hidden': 'true' } ), ' ', cfg.mcpEnabled ? __( 'MCP endpoint is enabled.', 'contentpulse-ai-auditor' ) : __( 'MCP endpoint is disabled.', 'contentpulse-ai-auditor' ), ' ', ! cfg.mcpEnabled ? h( 'a', { href: cfg.settingsUrl }, __( 'Enable it in Settings', 'contentpulse-ai-auditor' ) ) : null ),
+					codeBlock( cfg.mcpUrl, __( 'MCP endpoint URL', 'contentpulse-ai-auditor' ) ),
 					h(
 						'ol',
 						{ class: 'aica-steps' },
-						h( 'li', null, h( 'a', { href: cfg.appPasswordsUrl }, __( 'Create an Application Password', 'ai-content-auditor' ) ), ' ', __( 'for an administrator account.', 'ai-content-auditor' ) ),
-						h( 'li', null, __( 'Optionally build the auth header here — it is computed in your browser and never sent anywhere:', 'ai-content-auditor' ) ),
-						h( 'li', null, __( 'Paste a config below into your client.', 'ai-content-auditor' ) )
+						h( 'li', null, h( 'a', { href: cfg.appPasswordsUrl }, __( 'Create an Application Password', 'contentpulse-ai-auditor' ) ), ' ', __( 'for an administrator account.', 'contentpulse-ai-auditor' ) ),
+						h( 'li', null, __( 'Optionally build the auth header here — it is computed in your browser and never sent anywhere:', 'contentpulse-ai-auditor' ) ),
+						h( 'li', null, __( 'Paste a config below into your client.', 'contentpulse-ai-auditor' ) )
 					),
 					h(
 						'div',
 						{ class: 'aica-inline-form' },
-						h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-app-user' }, __( 'Username', 'ai-content-auditor' ) ), user ),
-						h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-app-pw' }, __( 'Application Password', 'ai-content-auditor' ) ), appPw ),
-						button( __( 'Fill snippets', 'ai-content-auditor' ), {
+						h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-app-user' }, __( 'Username', 'contentpulse-ai-auditor' ) ), user ),
+						h( 'div', { class: 'aica-field' }, h( 'label', { for: 'aica-app-pw' }, __( 'Application Password', 'contentpulse-ai-auditor' ) ), appPw ),
+						button( __( 'Fill snippets', 'contentpulse-ai-auditor' ), {
 							onClick: () => {
 								const raw = user.value.trim() + ':' + appPw.value.trim();
 								auth.value = window.btoa( unescape( encodeURIComponent( raw ) ) );
 								appPw.value = '';
 								renderSnippets();
-								announce( __( 'Snippets updated with your credentials.', 'ai-content-auditor' ) );
+								announce( __( 'Snippets updated with your credentials.', 'contentpulse-ai-auditor' ) );
 							},
 						} )
 					),
@@ -1247,9 +1247,9 @@
 				h(
 					'div',
 					{ class: 'aica-card' },
-					h( 'h2', { class: 'aica-card__title' }, icon( 'tool' ), __( 'Tools exposed', 'ai-content-auditor' ) ),
-					h( 'p', { class: 'aica-muted aica-small' }, __( 'The same tools power the built-in Claude agent. Every call is schema-validated and capability-checked.', 'ai-content-auditor' ), cfg.abilitiesApi ? ' ' + __( 'They are also registered as WordPress Abilities (ai-content-auditor/*), so the official MCP Adapter can serve them too.', 'ai-content-auditor' ) : '' ),
-					h( 'div', { class: 'aica-table-wrap' }, h( 'table', { class: 'aica-table' }, h( 'thead', null, h( 'tr', null, h( 'th', { scope: 'col' }, __( 'Tool', 'ai-content-auditor' ) ), h( 'th', { scope: 'col' }, __( 'What it does', 'ai-content-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Access', 'ai-content-auditor' ) ) ) ), tbody ) )
+					h( 'h2', { class: 'aica-card__title' }, icon( 'tool' ), __( 'Tools exposed', 'contentpulse-ai-auditor' ) ),
+					h( 'p', { class: 'aica-muted aica-small' }, __( 'The same tools power the built-in Claude agent. Every call is schema-validated and capability-checked.', 'contentpulse-ai-auditor' ), cfg.abilitiesApi ? ' ' + __( 'They are also registered as WordPress Abilities (contentpulse-ai-auditor/*), so the official MCP Adapter can serve them too.', 'contentpulse-ai-auditor' ) : '' ),
+					h( 'div', { class: 'aica-table-wrap' }, h( 'table', { class: 'aica-table' }, h( 'thead', null, h( 'tr', null, h( 'th', { scope: 'col' }, __( 'Tool', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col' }, __( 'What it does', 'contentpulse-ai-auditor' ) ), h( 'th', { scope: 'col' }, __( 'Access', 'contentpulse-ai-auditor' ) ) ) ), tbody ) )
 				)
 			)
 		);
@@ -1265,11 +1265,11 @@
 		testBtn.addEventListener( 'click', () =>
 			busy( testBtn, async () => {
 				out.className = '';
-				out.textContent = __( 'Testing…', 'ai-content-auditor' );
+				out.textContent = __( 'Testing…', 'contentpulse-ai-auditor' );
 				try {
 					const r = await api( '/test-connection', { method: 'POST' } );
 					out.className = 'is-ok';
-					out.textContent = sprintf( __( 'Connected ✓ (%s)', 'ai-content-auditor' ), r.model );
+					out.textContent = sprintf( __( 'Connected ✓ (%s)', 'contentpulse-ai-auditor' ), r.model );
 				} catch ( e ) {
 					out.className = 'is-error';
 					out.textContent = errorMessage( e );

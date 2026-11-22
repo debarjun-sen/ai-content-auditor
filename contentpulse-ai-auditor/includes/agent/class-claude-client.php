@@ -100,7 +100,7 @@ class Claude_Client {
 	 */
 	public function create_message( array $body ) {
 		if ( '' === $this->api_key ) {
-			return new WP_Error( 'aica_no_api_key', __( 'No Claude API key is configured. Add one under Settings.', 'ai-content-auditor' ) );
+			return new WP_Error( 'aica_no_api_key', __( 'No Claude API key is configured. Add one under Settings.', 'contentpulse-ai-auditor' ) );
 		}
 
 		$headers = array(
@@ -128,7 +128,7 @@ class Claude_Client {
 			++$attempts;
 			$response = wp_remote_post( self::ENDPOINT, $args );
 			if ( is_wp_error( $response ) ) {
-				$error = new WP_Error( 'aica_http', sprintf( /* translators: %s: error */ __( 'Could not reach the Claude API: %s', 'ai-content-auditor' ), $response->get_error_message() ) );
+				$error = new WP_Error( 'aica_http', sprintf( /* translators: %s: error */ __( 'Could not reach the Claude API: %s', 'contentpulse-ai-auditor' ), $response->get_error_message() ) );
 				$retry = $attempts < 2;
 			} else {
 				$code    = (int) wp_remote_retrieve_response_code( $response );
@@ -162,23 +162,23 @@ class Claude_Client {
 	 */
 	public static function error_from_response( $code, $decoded ) {
 		$type = isset( $decoded['error']['type'] ) ? (string) $decoded['error']['type'] : 'api_error';
-		$msg  = isset( $decoded['error']['message'] ) ? (string) $decoded['error']['message'] : __( 'Unexpected response from the Claude API.', 'ai-content-auditor' );
+		$msg  = isset( $decoded['error']['message'] ) ? (string) $decoded['error']['message'] : __( 'Unexpected response from the Claude API.', 'contentpulse-ai-auditor' );
 		$hint = '';
 		switch ( $code ) {
 			case 401:
-				$hint = __( 'Check that your API key is correct and active.', 'ai-content-auditor' );
+				$hint = __( 'Check that your API key is correct and active.', 'contentpulse-ai-auditor' );
 				break;
 			case 403:
-				$hint = __( 'Your key lacks permission for this model or feature.', 'ai-content-auditor' );
+				$hint = __( 'Your key lacks permission for this model or feature.', 'contentpulse-ai-auditor' );
 				break;
 			case 404:
-				$hint = __( 'The model may not be available to your account; try another model in Settings.', 'ai-content-auditor' );
+				$hint = __( 'The model may not be available to your account; try another model in Settings.', 'contentpulse-ai-auditor' );
 				break;
 			case 429:
-				$hint = __( 'Rate limited. Wait a minute and resume the scan.', 'ai-content-auditor' );
+				$hint = __( 'Rate limited. Wait a minute and resume the scan.', 'contentpulse-ai-auditor' );
 				break;
 			case 529:
-				$hint = __( 'The API is temporarily overloaded. Resume the scan shortly.', 'ai-content-auditor' );
+				$hint = __( 'The API is temporarily overloaded. Resume the scan shortly.', 'contentpulse-ai-auditor' );
 				break;
 		}
 		return new WP_Error(

@@ -108,10 +108,10 @@ class Settings {
 		);
 
 		$sections = array(
-			'aica_claude' => array( __( 'Claude API', 'ai-content-auditor' ), __( 'The agent calls the Claude Messages API with tool use. Your key is stored encrypted and never sent to the browser.', 'ai-content-auditor' ) ),
-			'aica_scope'  => array( __( 'What to audit', 'ai-content-auditor' ), '' ),
-			'aica_safety' => array( __( 'Safety & budgets', 'ai-content-auditor' ), __( 'Hard limits enforced on every scan, whichever is hit first.', 'ai-content-auditor' ) ),
-			'aica_mcp'    => array( __( 'MCP server', 'ai-content-auditor' ), __( 'Let external agents (Claude Desktop, Claude Code) use the audit tools over MCP.', 'ai-content-auditor' ) ),
+			'aica_claude' => array( __( 'Claude API', 'contentpulse-ai-auditor' ), __( 'The agent calls the Claude Messages API with tool use. Your key is stored encrypted and never sent to the browser.', 'contentpulse-ai-auditor' ) ),
+			'aica_scope'  => array( __( 'What to audit', 'contentpulse-ai-auditor' ), '' ),
+			'aica_safety' => array( __( 'Safety & budgets', 'contentpulse-ai-auditor' ), __( 'Hard limits enforced on every scan, whichever is hit first.', 'contentpulse-ai-auditor' ) ),
+			'aica_mcp'    => array( __( 'MCP server', 'contentpulse-ai-auditor' ), __( 'Let external agents (Claude Desktop, Claude Code) use the audit tools over MCP.', 'contentpulse-ai-auditor' ) ),
 		);
 		foreach ( $sections as $id => $s ) {
 			$desc = $s[1];
@@ -133,31 +133,31 @@ class Settings {
 		}
 
 		$fields = array(
-			array( 'api_key', __( 'API key', 'ai-content-auditor' ), 'aica_claude', 'api_key' ),
-			array( 'model', __( 'Model', 'ai-content-auditor' ), 'aica_claude', 'select', $model_opts ),
+			array( 'api_key', __( 'API key', 'contentpulse-ai-auditor' ), 'aica_claude', 'api_key' ),
+			array( 'model', __( 'Model', 'contentpulse-ai-auditor' ), 'aica_claude', 'select', $model_opts ),
 			array(
 				'effort',
-				__( 'Effort', 'ai-content-auditor' ),
+				__( 'Effort', 'contentpulse-ai-auditor' ),
 				'aica_claude',
 				'select',
 				array(
-					'low'    => __( 'Low — fastest', 'ai-content-auditor' ),
-					'medium' => __( 'Medium — recommended', 'ai-content-auditor' ),
-					'high'   => __( 'High — most thorough', 'ai-content-auditor' ),
+					'low'    => __( 'Low — fastest', 'contentpulse-ai-auditor' ),
+					'medium' => __( 'Medium — recommended', 'contentpulse-ai-auditor' ),
+					'high'   => __( 'High — most thorough', 'contentpulse-ai-auditor' ),
 				),
 			),
-			array( 'refusal_fallback', __( 'Refusal fallback', 'ai-content-auditor' ), 'aica_claude', 'checkbox', __( 'If a request is declined by safety classifiers, let the API retry it on a fallback model.', 'ai-content-auditor' ) ),
-			array( 'post_types', __( 'Content types', 'ai-content-auditor' ), 'aica_scope', 'post_types' ),
-			array( 'include_drafts', __( 'Include drafts', 'ai-content-auditor' ), 'aica_scope', 'checkbox', __( 'Also audit drafts and pending posts (never private posts).', 'ai-content-auditor' ) ),
-			array( 'stale_days', __( 'Stale after (days)', 'ai-content-auditor' ), 'aica_scope', 'number', array( 30, 3650 ) ),
-			array( 'max_posts', __( 'Max posts per scan', 'ai-content-auditor' ), 'aica_safety', 'number', array( 1, 200 ) ),
-			array( 'max_iterations', __( 'Max agent turns', 'ai-content-auditor' ), 'aica_safety', 'number', array( 3, 100 ) ),
-			array( 'max_tokens_budget', __( 'Token budget per scan', 'ai-content-auditor' ), 'aica_safety', 'number', array( 20000, 5000000 ) ),
-			array( 'content_chars', __( 'Characters of content sent per post', 'ai-content-auditor' ), 'aica_safety', 'number', array( 500, 30000 ) ),
-			array( 'output_meta_description', __( 'Output meta descriptions', 'ai-content-auditor' ), 'aica_safety', 'checkbox', __( 'Print approved meta descriptions in the page head when no SEO plugin is active.', 'ai-content-auditor' ) ),
-			array( 'delete_on_uninstall', __( 'Delete data on uninstall', 'ai-content-auditor' ), 'aica_safety', 'checkbox', __( 'Remove scans, findings, settings and the stored key when the plugin is deleted.', 'ai-content-auditor' ) ),
-			array( 'mcp_enabled', __( 'Enable MCP endpoint', 'ai-content-auditor' ), 'aica_mcp', 'checkbox', __( 'Requires an authenticated administrator (Application Password).', 'ai-content-auditor' ) ),
-			array( 'mcp_allow_fixes', __( 'Allow MCP clients to apply fixes', 'ai-content-auditor' ), 'aica_mcp', 'checkbox', __( 'Off by default. When off, external agents can audit and record findings but cannot change content.', 'ai-content-auditor' ) ),
+			array( 'refusal_fallback', __( 'Refusal fallback', 'contentpulse-ai-auditor' ), 'aica_claude', 'checkbox', __( 'If a request is declined by safety classifiers, let the API retry it on a fallback model.', 'contentpulse-ai-auditor' ) ),
+			array( 'post_types', __( 'Content types', 'contentpulse-ai-auditor' ), 'aica_scope', 'post_types' ),
+			array( 'include_drafts', __( 'Include drafts', 'contentpulse-ai-auditor' ), 'aica_scope', 'checkbox', __( 'Also audit drafts and pending posts (never private posts).', 'contentpulse-ai-auditor' ) ),
+			array( 'stale_days', __( 'Stale after (days)', 'contentpulse-ai-auditor' ), 'aica_scope', 'number', array( 30, 3650 ) ),
+			array( 'max_posts', __( 'Max posts per scan', 'contentpulse-ai-auditor' ), 'aica_safety', 'number', array( 1, 200 ) ),
+			array( 'max_iterations', __( 'Max agent turns', 'contentpulse-ai-auditor' ), 'aica_safety', 'number', array( 3, 100 ) ),
+			array( 'max_tokens_budget', __( 'Token budget per scan', 'contentpulse-ai-auditor' ), 'aica_safety', 'number', array( 20000, 5000000 ) ),
+			array( 'content_chars', __( 'Characters of content sent per post', 'contentpulse-ai-auditor' ), 'aica_safety', 'number', array( 500, 30000 ) ),
+			array( 'output_meta_description', __( 'Output meta descriptions', 'contentpulse-ai-auditor' ), 'aica_safety', 'checkbox', __( 'Print approved meta descriptions in the page head when no SEO plugin is active.', 'contentpulse-ai-auditor' ) ),
+			array( 'delete_on_uninstall', __( 'Delete data on uninstall', 'contentpulse-ai-auditor' ), 'aica_safety', 'checkbox', __( 'Remove scans, findings, settings and the stored key when the plugin is deleted.', 'contentpulse-ai-auditor' ) ),
+			array( 'mcp_enabled', __( 'Enable MCP endpoint', 'contentpulse-ai-auditor' ), 'aica_mcp', 'checkbox', __( 'Requires an authenticated administrator (Application Password).', 'contentpulse-ai-auditor' ) ),
+			array( 'mcp_allow_fixes', __( 'Allow MCP clients to apply fixes', 'contentpulse-ai-auditor' ), 'aica_mcp', 'checkbox', __( 'Off by default. When off, external agents can audit and record findings but cannot change content.', 'contentpulse-ai-auditor' ) ),
 		);
 
 		foreach ( $fields as $f ) {
@@ -194,7 +194,7 @@ class Settings {
 				if ( 'constant' === $source || 'env' === $source ) {
 					printf(
 						'<p class="aica-key-status aica-key-status--ok">%s <code>%s</code></p>',
-						esc_html( 'constant' === $source ? __( 'Defined in wp-config.php:', 'ai-content-auditor' ) : __( 'Read from the ANTHROPIC_API_KEY environment variable:', 'ai-content-auditor' ) ),
+						esc_html( 'constant' === $source ? __( 'Defined in wp-config.php:', 'contentpulse-ai-auditor' ) : __( 'Read from the ANTHROPIC_API_KEY environment variable:', 'contentpulse-ai-auditor' ) ),
 						esc_html( Secrets::masked() )
 					);
 					return;
@@ -205,18 +205,18 @@ class Settings {
 					esc_attr( $name ),
 					esc_attr( 'option' === $source ? Secrets::masked() : 'sk-ant-…' )
 				);
-				echo ' <button type="button" class="button" id="aica-test-connection">' . esc_html__( 'Test connection', 'ai-content-auditor' ) . '</button>';
+				echo ' <button type="button" class="button" id="aica-test-connection">' . esc_html__( 'Test connection', 'contentpulse-ai-auditor' ) . '</button>';
 				echo ' <span id="aica-test-result" role="status" aria-live="polite"></span>';
 				echo '<p class="description" id="' . esc_attr( $id ) . '_help">';
 				if ( 'option' === $source ) {
-					echo esc_html__( 'A key is saved. Leave blank to keep it.', 'ai-content-auditor' ) . ' ';
+					echo esc_html__( 'A key is saved. Leave blank to keep it.', 'contentpulse-ai-auditor' ) . ' ';
 					printf(
 						'<label><input type="checkbox" name="%s" value="1" /> %s</label>',
 						esc_attr( self::OPTION . '[api_key_clear]' ),
-						esc_html__( 'Remove saved key', 'ai-content-auditor' )
+						esc_html__( 'Remove saved key', 'contentpulse-ai-auditor' )
 					);
 				} else {
-					echo esc_html__( 'Tip: define AICA_ANTHROPIC_API_KEY in wp-config.php to keep the key out of the database entirely.', 'ai-content-auditor' );
+					echo esc_html__( 'Tip: define AICA_ANTHROPIC_API_KEY in wp-config.php to keep the key out of the database entirely.', 'contentpulse-ai-auditor' );
 				}
 				echo '</p>';
 				return;
@@ -251,7 +251,7 @@ class Settings {
 				return;
 
 			case 'post_types':
-				echo '<fieldset id="' . esc_attr( $id ) . '"><legend class="screen-reader-text">' . esc_html__( 'Content types', 'ai-content-auditor' ) . '</legend>';
+				echo '<fieldset id="' . esc_attr( $id ) . '"><legend class="screen-reader-text">' . esc_html__( 'Content types', 'contentpulse-ai-auditor' ) . '</legend>';
 				foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $pt ) {
 					if ( 'attachment' === $pt->name ) {
 						continue;

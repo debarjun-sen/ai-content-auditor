@@ -1,5 +1,5 @@
 {
-	"name": "ai-content-auditor/ai-content-auditor",
+	"name": "contentpulse-ai-auditor/contentpulse-ai-auditor",
 	"description": "Claude-powered SEO, accessibility and stale-content auditing agent for WordPress.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",

@@ -50,11 +50,11 @@ class Fix_Applier {
 	public static function sanitize_value( $field, $value ) {
 		$fields = self::fields();
 		if ( ! isset( $fields[ $field ] ) ) {
-			return new WP_Error( 'aica_fix_field_not_allowed', __( 'This field cannot be changed by the auditor.', 'ai-content-auditor' ), array( 'status' => 400 ) );
+			return new WP_Error( 'aica_fix_field_not_allowed', __( 'This field cannot be changed by the auditor.', 'contentpulse-ai-auditor' ), array( 'status' => 400 ) );
 		}
 		$value = trim( sanitize_text_field( wp_strip_all_tags( (string) $value ) ) );
 		if ( '' === $value ) {
-			return new WP_Error( 'aica_fix_empty', __( 'The suggested value is empty.', 'ai-content-auditor' ), array( 'status' => 400 ) );
+			return new WP_Error( 'aica_fix_empty', __( 'The suggested value is empty.', 'contentpulse-ai-auditor' ), array( 'status' => 400 ) );
 		}
 		if ( mb_strlen( $value ) > $fields[ $field ] ) {
 			$value = rtrim( mb_substr( $value, 0, $fields[ $field ] - 1 ) ) . '…';
@@ -70,17 +70,17 @@ class Fix_Applier {
 	 */
 	public static function apply( array $finding ) {
 		if ( 'open' !== $finding['status'] ) {
-			return new WP_Error( 'aica_fix_state', __( 'Only open findings can be fixed.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+			return new WP_Error( 'aica_fix_state', __( 'Only open findings can be fixed.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 		}
 		if ( empty( $finding['has_fix'] ) ) {
-			return new WP_Error( 'aica_no_fix', __( 'This finding has no suggested fix.', 'ai-content-auditor' ), array( 'status' => 400 ) );
+			return new WP_Error( 'aica_no_fix', __( 'This finding has no suggested fix.', 'contentpulse-ai-auditor' ), array( 'status' => 400 ) );
 		}
 		$post = get_post( (int) $finding['post_id'] );
 		if ( ! $post ) {
-			return new WP_Error( 'aica_post_missing', __( 'The post no longer exists.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_post_missing', __( 'The post no longer exists.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-			return new WP_Error( 'aica_forbidden', __( 'You are not allowed to edit this post.', 'ai-content-auditor' ), array( 'status' => 403 ) );
+			return new WP_Error( 'aica_forbidden', __( 'You are not allowed to edit this post.', 'contentpulse-ai-auditor' ), array( 'status' => 403 ) );
 		}
 		$value = self::sanitize_value( $finding['fix_field'], $finding['fix_value'] );
 		if ( is_wp_error( $value ) ) {
@@ -98,7 +98,7 @@ class Fix_Applier {
 				$result = self::apply_image_alt( $post, (string) $finding['fix_target'], $value );
 				break;
 			default:
-				$result = apply_filters( 'aica_apply_custom_fix', new WP_Error( 'aica_fix_unsupported', __( 'Unsupported fix.', 'ai-content-auditor' ) ), $finding, $post, $value );
+				$result = apply_filters( 'aica_apply_custom_fix', new WP_Error( 'aica_fix_unsupported', __( 'Unsupported fix.', 'contentpulse-ai-auditor' ) ), $finding, $post, $value );
 		}
 		if ( is_wp_error( $result ) ) {
 			return $result;
@@ -135,15 +135,15 @@ class Fix_Applier {
 	 */
 	public static function undo( array $finding ) {
 		if ( 'fixed' !== $finding['status'] ) {
-			return new WP_Error( 'aica_undo_state', __( 'This finding has not been fixed.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+			return new WP_Error( 'aica_undo_state', __( 'This finding has not been fixed.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 		}
 		$prev = json_decode( (string) Repository::get_fix_previous( $finding['id'] ), true );
 		$post = get_post( (int) $finding['post_id'] );
 		if ( ! is_array( $prev ) || ! $post ) {
-			return new WP_Error( 'aica_undo_missing', __( 'Nothing to undo.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_undo_missing', __( 'Nothing to undo.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-			return new WP_Error( 'aica_forbidden', __( 'You are not allowed to edit this post.', 'ai-content-auditor' ), array( 'status' => 403 ) );
+			return new WP_Error( 'aica_forbidden', __( 'You are not allowed to edit this post.', 'contentpulse-ai-auditor' ), array( 'status' => 403 ) );
 		}
 
 		if ( isset( $prev['meta'] ) ) {
@@ -157,7 +157,7 @@ class Fix_Applier {
 		}
 		if ( array_key_exists( 'excerpt', $prev ) || isset( $prev['content'] ) ) {
 			if ( isset( $prev['after_hash'] ) && md5( $post->post_content . '|' . $post->post_excerpt ) !== $prev['after_hash'] ) {
-				return new WP_Error( 'aica_undo_conflict', __( 'The post was edited after the fix. Use the post’s revisions to restore an earlier version.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+				return new WP_Error( 'aica_undo_conflict', __( 'The post was edited after the fix. Use the post’s revisions to restore an earlier version.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 			}
 			$update = array( 'ID' => $post->ID );
 			if ( array_key_exists( 'excerpt', $prev ) ) {
@@ -254,11 +254,11 @@ class Fix_Applier {
 	 */
 	private static function apply_image_alt( $post, $target, $value ) {
 		if ( '' === $target ) {
-			return new WP_Error( 'aica_fix_target', __( 'No image was specified for this fix.', 'ai-content-auditor' ), array( 'status' => 400 ) );
+			return new WP_Error( 'aica_fix_target', __( 'No image was specified for this fix.', 'contentpulse-ai-auditor' ), array( 'status' => 400 ) );
 		}
 		$updated = self::set_img_alt( $post->post_content, $target, $value );
 		if ( null === $updated['html'] ) {
-			return new WP_Error( 'aica_fix_target', __( 'The image could not be found in the post anymore.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_fix_target', __( 'The image could not be found in the post anymore.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 
 		$previous = array( 'content' => $post->post_content );

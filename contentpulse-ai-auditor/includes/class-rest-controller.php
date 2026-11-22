@@ -237,7 +237,7 @@ class Rest_Controller {
 		$overrides = array_filter( array( 'max_posts' => $req->get_param( 'max_posts' ) ) );
 		if ( 'ai' === $req->get_param( 'mode' ) ) {
 			if ( ! Secrets::has_key() ) {
-				return new WP_Error( 'aica_no_api_key', __( 'Add your Claude API key in Settings to run an AI audit — or run a Quick scan, which needs no key.', 'ai-content-auditor' ), array( 'status' => 400 ) );
+				return new WP_Error( 'aica_no_api_key', __( 'Add your Claude API key in Settings to run an AI audit — or run a Quick scan, which needs no key.', 'contentpulse-ai-auditor' ), array( 'status' => 400 ) );
 			}
 			$scan = Audit_Agent::start( $overrides );
 		} else {
@@ -255,7 +255,7 @@ class Rest_Controller {
 	public static function get_scan( WP_REST_Request $req ) {
 		$scan = Repository::get_scan( (int) $req['id'] );
 		if ( ! $scan ) {
-			return new WP_Error( 'aica_not_found', __( 'Scan not found.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_not_found', __( 'Scan not found.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		return self::scan_payload( $scan, (int) $req['after'] );
 	}
@@ -270,7 +270,7 @@ class Rest_Controller {
 		$id   = (int) $req['id'];
 		$scan = Repository::get_scan( $id );
 		if ( ! $scan ) {
-			return new WP_Error( 'aica_not_found', __( 'Scan not found.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_not_found', __( 'Scan not found.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		// One agent turn waits on a single Claude API call (up to 180 s); give this request room to finish.
 		if ( function_exists( 'set_time_limit' ) ) {
@@ -341,7 +341,7 @@ class Rest_Controller {
 	public static function finding_action( WP_REST_Request $req ) {
 		$finding = Repository::get_finding( (int) $req['id'] );
 		if ( ! $finding ) {
-			return new WP_Error( 'aica_not_found', __( 'Finding not found.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_not_found', __( 'Finding not found.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		switch ( $req['action'] ) {
 			case 'apply':
@@ -368,7 +368,7 @@ class Rest_Controller {
 				break;
 			default:
 				if ( 'fixed' === $finding['status'] ) {
-					return new WP_Error( 'aica_reopen_fixed', __( 'Undo the fix instead of reopening.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+					return new WP_Error( 'aica_reopen_fixed', __( 'Undo the fix instead of reopening.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 				}
 				Repository::update_finding( $finding['id'], array( 'status' => 'open' ) );
 				$r = true;
@@ -458,7 +458,7 @@ class Rest_Controller {
 			'id'             => $f['id'],
 			'scan_id'        => $f['scan_id'],
 			'post_id'        => $f['post_id'],
-			'post_title'     => $post ? html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' ) : __( '(deleted)', 'ai-content-auditor' ),
+			'post_title'     => $post ? html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' ) : __( '(deleted)', 'contentpulse-ai-auditor' ),
 			'post_type'      => $post && get_post_type_object( $post->post_type ) ? get_post_type_object( $post->post_type )->labels->singular_name : '',
 			'edit_url'       => $post && current_user_can( 'edit_post', $post->ID ) ? get_edit_post_link( $post->ID, 'raw' ) : '',
 			'view_url'       => $post ? get_permalink( $post ) : '',

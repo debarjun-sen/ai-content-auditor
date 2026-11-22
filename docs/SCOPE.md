@@ -11,7 +11,7 @@ clean admin dashboard that demos well. The agent only *reads* site content and
 
 | # | Milestone | What ships |
 |---|-----------|------------|
-| 1 | Scope & companion plugin | This document; `ai-content-auditor-demo` companion plugin that seeds a site with realistic, intentionally flawed content (incl. a prompt-injection trap) and removes it again. |
+| 1 | Scope & companion plugin | This document; `contentpulse-ai-auditor-demo` companion plugin that seeds a site with realistic, intentionally flawed content (incl. a prompt-injection trap) and removes it again. |
 | 2 | MCP server & core tools | One tool registry used by three surfaces: the in-plugin Claude agent loop, a built-in MCP endpoint (`/wp-json/aica/v1/mcp`, JSON-RPC 2.0 / Streamable HTTP), and WordPress Abilities API registrations (WP 6.9+, picked up by the official MCP Adapter). |
 | 3 | Safety & tests | Read-only agent, human-approved allowlisted fixes with undo, untrusted-content wrapping + prompt-injection detection, schema validation of every tool input, per-scan token/iteration/post budgets, single-scan lock, capability + nonce checks, encrypted API key. PHPUnit unit + integration suites. |
 | 4 | Demo, README, publishing | Playground blueprint (one-click demo), wp-env config, demo script, README, `readme.txt`, zip build script, CI workflow. |

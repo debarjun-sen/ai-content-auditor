@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Admin {
 
-	const SLUG = 'ai-content-auditor';
+	const SLUG = 'contentpulse-ai-auditor';
 
 	/**
 	 * Hook suffix of our page.
@@ -42,8 +42,8 @@ class Admin {
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="black"><path d="M8.5 2a6.5 6.5 0 0 1 5.18 10.43l3.95 3.95-1.25 1.25-3.95-3.95A6.5 6.5 0 1 1 8.5 2Zm0 1.75a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5Zm.6 1.6.5 1.45 1.45.5-1.45.5-.5 1.45-.5-1.45-1.45-.5 1.45-.5.5-1.45Z"/></svg>'
 		);
 		self::$hook = add_menu_page(
-			__( 'Content Audit', 'ai-content-auditor' ),
-			__( 'Content Audit', 'ai-content-auditor' ),
+			__( 'Content Audit', 'contentpulse-ai-auditor' ),
+			__( 'Content Audit', 'contentpulse-ai-auditor' ),
 			Plugin::capability(),
 			self::SLUG,
 			array( __CLASS__, 'render' ),
@@ -59,7 +59,7 @@ class Admin {
 	 * @return array
 	 */
 	public static function action_links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">' . esc_html__( 'Open dashboard', 'ai-content-auditor' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">' . esc_html__( 'Open dashboard', 'contentpulse-ai-auditor' ) . '</a>' );
 		return $links;
 	}
 
@@ -74,7 +74,7 @@ class Admin {
 		}
 		wp_enqueue_style( 'aica-admin', AICA_URL . 'assets/admin.css', array(), AICA_VERSION );
 		wp_enqueue_script( 'aica-admin', AICA_URL . 'assets/admin.js', array( 'wp-api-fetch', 'wp-i18n' ), AICA_VERSION, true );
-		wp_set_script_translations( 'aica-admin', 'ai-content-auditor' );
+		wp_set_script_translations( 'aica-admin', 'contentpulse-ai-auditor' );
 
 		$tools = array();
 		foreach ( Tool_Registry::mcp_tools() as $t ) {
@@ -115,14 +115,14 @@ class Admin {
 	 */
 	public static function render() {
 		if ( ! current_user_can( Plugin::capability() ) ) {
-			wp_die( esc_html__( 'You do not have permission to view this page.', 'ai-content-auditor' ) );
+			wp_die( esc_html__( 'You do not have permission to view this page.', 'contentpulse-ai-auditor' ) );
 		}
 		$tabs = array(
-			'dashboard' => __( 'Dashboard', 'ai-content-auditor' ),
-			'findings'  => __( 'Findings', 'ai-content-auditor' ),
-			'activity'  => __( 'Agent activity', 'ai-content-auditor' ),
-			'connect'   => __( 'Connect (MCP)', 'ai-content-auditor' ),
-			'settings'  => __( 'Settings', 'ai-content-auditor' ),
+			'dashboard' => __( 'Dashboard', 'contentpulse-ai-auditor' ),
+			'findings'  => __( 'Findings', 'contentpulse-ai-auditor' ),
+			'activity'  => __( 'Agent activity', 'contentpulse-ai-auditor' ),
+			'connect'   => __( 'Connect (MCP)', 'contentpulse-ai-auditor' ),
+			'settings'  => __( 'Settings', 'contentpulse-ai-auditor' ),
 		);
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only tab selection.
 		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'dashboard';
@@ -135,15 +135,15 @@ class Admin {
 						<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.6-4.6"/><path d="M10.5 7.5v6M7.5 10.5h6" stroke-width="1.6"/></svg>
 					</span>
 					<div>
-						<h1 class="aica-title"><?php esc_html_e( 'Content Audit', 'ai-content-auditor' ); ?></h1>
-						<p class="aica-subtitle"><?php esc_html_e( 'SEO, accessibility & freshness — audited by Claude, approved by you.', 'ai-content-auditor' ); ?></p>
+						<h1 class="aica-title"><?php esc_html_e( 'Content Audit', 'contentpulse-ai-auditor' ); ?></h1>
+						<p class="aica-subtitle"><?php esc_html_e( 'SEO, accessibility & freshness — audited by Claude, approved by you.', 'contentpulse-ai-auditor' ); ?></p>
 					</div>
 				</div>
 				<div class="aica-header__actions" id="aica-header-actions"></div>
 			</header>
 			<hr class="wp-header-end" />
 
-			<nav class="aica-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Content Audit sections', 'ai-content-auditor' ); ?>">
+			<nav class="aica-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Content Audit sections', 'contentpulse-ai-auditor' ); ?>">
 				<?php foreach ( $tabs as $key => $label ) : ?>
 					<button type="button" role="tab" class="aica-tab" id="aica-tab-<?php echo esc_attr( $key ); ?>" data-tab="<?php echo esc_attr( $key ); ?>" aria-controls="aica-panel-<?php echo esc_attr( $key ); ?>" aria-selected="<?php echo $key === $current ? 'true' : 'false'; ?>" tabindex="<?php echo $key === $current ? '0' : '-1'; ?>">
 						<?php echo esc_html( $label ); ?>
@@ -160,14 +160,14 @@ class Admin {
 						<?php self::render_settings(); ?>
 					<?php else : ?>
 						<div class="aica-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
-						<p class="screen-reader-text"><?php esc_html_e( 'Loading…', 'ai-content-auditor' ); ?></p>
+						<p class="screen-reader-text"><?php esc_html_e( 'Loading…', 'contentpulse-ai-auditor' ); ?></p>
 					<?php endif; ?>
 				</section>
 			<?php endforeach; ?>
 
 			<div class="aica-live screen-reader-text" id="aica-live" role="status" aria-live="polite"></div>
 			<div class="aica-toast-region" id="aica-toasts" aria-live="assertive"></div>
-			<noscript><div class="notice notice-error"><p><?php esc_html_e( 'The Content Audit dashboard needs JavaScript.', 'ai-content-auditor' ); ?></p></div></noscript>
+			<noscript><div class="notice notice-error"><p><?php esc_html_e( 'The Content Audit dashboard needs JavaScript.', 'contentpulse-ai-auditor' ); ?></p></div></noscript>
 		</div>
 		<?php
 	}
@@ -177,7 +177,7 @@ class Admin {
 	 */
 	private static function render_settings() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			echo '<p>' . esc_html__( 'Only administrators can change settings.', 'ai-content-auditor' ) . '</p>';
+			echo '<p>' . esc_html__( 'Only administrators can change settings.', 'contentpulse-ai-auditor' ) . '</p>';
 			return;
 		}
 		settings_errors();
@@ -187,7 +187,7 @@ class Admin {
 				<?php
 				settings_fields( Settings::GROUP );
 				do_settings_sections( Settings::PAGE );
-				submit_button( __( 'Save settings', 'ai-content-auditor' ) );
+				submit_button( __( 'Save settings', 'contentpulse-ai-auditor' ) );
 				?>
 			</form>
 		</div>

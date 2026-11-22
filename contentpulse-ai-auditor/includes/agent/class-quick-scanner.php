@@ -52,7 +52,7 @@ class Quick_Scanner {
 					'error'  => 'Another scan is already running.',
 				)
 			);
-			return new WP_Error( 'aica_scan_running', __( 'Another scan is already running. Wait for it to finish or cancel it.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+			return new WP_Error( 'aica_scan_running', __( 'Another scan is already running. Wait for it to finish or cancel it.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 		}
 		Repository::log_event( $id, 'info', sprintf( 'Quick scan started (rules only, up to %d items).', $scope['max_posts'] ) );
 		Audit_Agent::schedule_continuation( $id );
@@ -68,7 +68,7 @@ class Quick_Scanner {
 	public static function step( $scan_id ) {
 		$scan = Repository::get_scan( $scan_id );
 		if ( ! $scan || 'quick' !== $scan['mode'] ) {
-			return new WP_Error( 'aica_scan_missing', __( 'Scan not found.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_scan_missing', __( 'Scan not found.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		if ( $scan['is_terminal'] || ! Repository::acquire_step_lock( $scan_id ) ) {
 			return $scan;

@@ -1,11 +1,11 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"meta": {
-		"title": "AI Content Auditor — live demo",
-		"description": "Installs AI Content Auditor and its demo companion from GitHub, seeds flawed demo content and runs a quick scan so the dashboard is populated on arrival.",
+		"title": "ContentPulse AI Auditor — live demo",
+		"description": "Installs ContentPulse AI Auditor and its demo companion from GitHub, seeds flawed demo content and runs a quick scan so the dashboard is populated on arrival.",
 		"author": "debarjun-sen"
 	},
-	"landingPage": "/wp-admin/admin.php?page=ai-content-auditor",
+	"landingPage": "/wp-admin/admin.php?page=contentpulse-ai-auditor",
 	"preferredVersions": {
 		"php": "8.3",
 		"wp": "latest"
@@ -22,7 +22,7 @@
 				"url": "https://github.com/debarjun-sen/ai-content-auditor",
 				"ref": "main",
 				"refType": "branch",
-				"path": "ai-content-auditor"
+				"path": "contentpulse-ai-auditor"
 			},
 			"options": { "activate": true }
 		},
@@ -33,7 +33,7 @@
 				"url": "https://github.com/debarjun-sen/ai-content-auditor",
 				"ref": "main",
 				"refType": "branch",
-				"path": "ai-content-auditor-demo"
+				"path": "contentpulse-ai-auditor-demo"
 			},
 			"options": { "activate": true }
 		},

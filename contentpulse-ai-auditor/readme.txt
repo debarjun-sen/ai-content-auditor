@@ -1,4 +1,4 @@
-=== AI Content Auditor ===
+=== ContentPulse AI Auditor ===
 Contributors: sendeb
 Tags: seo, accessibility, content audit, ai, mcp
 Requires at least: 6.9
@@ -12,7 +12,7 @@ A Claude-powered agent that audits your content for SEO, accessibility and stale
 
 == Description ==
 
-AI Content Auditor scans your posts and pages and gives you a prioritized report in a clean dashboard:
+ContentPulse AI Auditor scans your posts and pages and gives you a prioritized report in a clean dashboard:
 
 * **SEO** – titles, meta descriptions, thin content, headings, internal links, slugs, featured images.
 * **Accessibility** – missing or meaningless alt text, skipped heading levels, empty and vague links, tables without headers, untitled embeds, autoplaying or uncaptioned video (WCAG 2.2).

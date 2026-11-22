@@ -104,7 +104,7 @@ PROMPT;
 					'error'  => 'Another scan is already running.',
 				)
 			);
-			return new WP_Error( 'aica_scan_running', __( 'Another scan is already running. Wait for it to finish or cancel it.', 'ai-content-auditor' ), array( 'status' => 409 ) );
+			return new WP_Error( 'aica_scan_running', __( 'Another scan is already running. Wait for it to finish or cancel it.', 'contentpulse-ai-auditor' ), array( 'status' => 409 ) );
 		}
 
 		$task = sprintf(
@@ -139,7 +139,7 @@ PROMPT;
 	public function step( $scan_id ) {
 		$scan = Repository::get_scan( $scan_id, true );
 		if ( ! $scan || 'ai' !== $scan['mode'] ) {
-			return new WP_Error( 'aica_scan_missing', __( 'Scan not found.', 'ai-content-auditor' ), array( 'status' => 404 ) );
+			return new WP_Error( 'aica_scan_missing', __( 'Scan not found.', 'contentpulse-ai-auditor' ), array( 'status' => 404 ) );
 		}
 		if ( $scan['is_terminal'] ) {
 			unset( $scan['messages'] );
@@ -180,7 +180,7 @@ PROMPT;
 
 		// Hard stops.
 		if ( $scan['iterations'] >= (int) $scope['max_iterations'] + 1 || $used >= (int) $scope['token_budget'] * 1.1 ) {
-			self::finish( $id, 'budget_exhausted', __( 'Stopped: the scan reached its budget before the agent finished. Findings recorded so far are kept.', 'ai-content-auditor' ) );
+			self::finish( $id, 'budget_exhausted', __( 'Stopped: the scan reached its budget before the agent finished. Findings recorded so far are kept.', 'contentpulse-ai-auditor' ) );
 			Repository::log_event( $id, 'safety', 'Budget limit reached — scan stopped.' );
 			return true;
 		}
@@ -261,7 +261,7 @@ PROMPT;
 			$fields['messages'] = $messages;
 			Repository::update_scan( $id, $fields );
 			/* translators: %s: refusal category reported by the API, e.g. "cyber". */
-			self::finish( $id, 'failed', sprintf( __( 'The model declined to continue (category: %s). Findings recorded so far are kept.', 'ai-content-auditor' ), $cat ) );
+			self::finish( $id, 'failed', sprintf( __( 'The model declined to continue (category: %s). Findings recorded so far are kept.', 'contentpulse-ai-auditor' ), $cat ) );
 			Repository::log_event( $id, 'error', 'Model declined the request (refusal: ' . $cat . ').' );
 			return true;
 		}
@@ -394,7 +394,7 @@ PROMPT;
 	public static function cancel( $scan_id ) {
 		$scan = Repository::get_scan( $scan_id );
 		if ( $scan && ! $scan['is_terminal'] ) {
-			self::finish( $scan_id, 'cancelled', __( 'Cancelled by user.', 'ai-content-auditor' ) );
+			self::finish( $scan_id, 'cancelled', __( 'Cancelled by user.', 'contentpulse-ai-auditor' ) );
 			Repository::log_event( $scan_id, 'info', 'Scan cancelled.' );
 		}
 		Repository::release_scan_lock( $scan_id );

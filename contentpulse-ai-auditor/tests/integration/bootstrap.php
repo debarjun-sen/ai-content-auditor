@@ -1,7 +1,7 @@
 <?php
 /**
  * Integration bootstrap (WordPress test suite). Run inside wp-env:
- *   npx wp-env run tests-cli --env-cwd=wp-content/plugins/ai-content-auditor composer test:integration
+ *   npx wp-env run tests-cli --env-cwd=wp-content/plugins/contentpulse-ai-auditor composer test:integration
  *
  * @package AICA\Tests
  */
@@ -24,7 +24,7 @@ require_once $aica_tests_dir . '/includes/functions.php';
 tests_add_filter(
 	'muplugins_loaded',
 	static function () {
-		require dirname( __DIR__, 2 ) . '/ai-content-auditor.php';
+		require dirname( __DIR__, 2 ) . '/contentpulse-ai-auditor.php';
 	}
 );
 

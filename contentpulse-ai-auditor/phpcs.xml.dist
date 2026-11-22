@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="AI Content Auditor">
-	<description>WordPress Coding Standards for AI Content Auditor.</description>
+<ruleset name="ContentPulse AI Auditor">
+	<description>WordPress Coding Standards for ContentPulse AI Auditor.</description>
 	<file>.</file>
 	<exclude-pattern>vendor/*</exclude-pattern>
 	<exclude-pattern>node_modules/*</exclude-pattern>
@@ -21,7 +21,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="ai-content-auditor"/>
+				<element value="contentpulse-ai-auditor"/>
 			</property>
 		</properties>
 	</rule>

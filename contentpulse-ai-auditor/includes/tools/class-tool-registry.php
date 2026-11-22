@@ -869,7 +869,7 @@ class Tool_Registry {
 	 */
 	public static function tool_apply_fix( $in, Tool_Context $ctx ) {
 		if ( ! Settings::get( 'mcp_allow_fixes' ) ) {
-			return new WP_Error( 'aica_fixes_disabled', 'Applying fixes from external agents is disabled. Ask the site owner to approve the fix in the AI Content Auditor dashboard.' );
+			return new WP_Error( 'aica_fixes_disabled', 'Applying fixes from external agents is disabled. Ask the site owner to approve the fix in the ContentPulse AI Auditor dashboard.' );
 		}
 		$finding = Repository::get_finding( $in['finding_id'] );
 		if ( ! $finding ) {
