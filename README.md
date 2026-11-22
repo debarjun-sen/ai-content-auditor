@@ -38,8 +38,7 @@ Claude verifies these signals, drops false positives, adjusts severity, catches 
 
 ### Option A — one-click Playground demo (no install)
 
-1. Push this repository to GitHub and replace `OWNER/REPO` in [`blueprint.json`](blueprint.json).
-2. Open `https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/OWNER/REPO/main/blueprint.json`
+**[Open the live demo in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/debarjun-sen/ai-content-auditor/main/blueprint.json)** (no install needed).
 
 The blueprint installs both plugins, seeds demo content and runs a quick scan, so the dashboard is populated on arrival. Add an API key under **Content Audit → Settings** to run the AI audit.
 
@@ -210,7 +209,7 @@ The integration suite drives the full agent loop against scripted Claude respons
 
 1. `npm run build` → `dist/ai-content-auditor.zip` and `dist/ai-content-auditor-demo.zip`.
 2. Create a GitHub release and attach the zips; CI (`.github/workflows/ci.yml`) runs unit tests on PHP 7.4/8.1/8.3, integration tests in wp-env, linting, and uploads the zips as an artifact.
-3. Update `blueprint.json` with your `OWNER/REPO` and share the Playground link.
+3. Share the Playground link above; it always installs the latest `main` branch.
 4. For WordPress.org: `ai-content-auditor/readme.txt` is ready; run Plugin Check before submitting. Note that the plugin calls an external service (Anthropic API) only when an AI audit is run with a key the site owner provides — this is disclosed in the readme as the directory guidelines require.
 
 ## Extending

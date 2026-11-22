@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name:       AI Content Auditor
+ * Plugin URI:        https://github.com/debarjun-sen/ai-content-auditor
  * Description:       A Claude-powered agent that audits your content for SEO, accessibility, and stale-content issues, then proposes fixes you approve.
  * Version:           1.0.0
  * Requires at least: 6.9

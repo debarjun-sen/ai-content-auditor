@@ -3,7 +3,7 @@
 	"meta": {
 		"title": "AI Content Auditor — live demo",
 		"description": "Installs AI Content Auditor and its demo companion from GitHub, seeds flawed demo content and runs a quick scan so the dashboard is populated on arrival.",
-		"author": "ai-content-auditor"
+		"author": "debarjun-sen"
 	},
 	"landingPage": "/wp-admin/admin.php?page=ai-content-auditor",
 	"preferredVersions": {
@@ -19,7 +19,7 @@
 			"step": "installPlugin",
 			"pluginData": {
 				"resource": "git:directory",
-				"url": "https://github.com/OWNER/REPO",
+				"url": "https://github.com/debarjun-sen/ai-content-auditor",
 				"ref": "main",
 				"refType": "branch",
 				"path": "ai-content-auditor"
@@ -30,7 +30,7 @@
 			"step": "installPlugin",
 			"pluginData": {
 				"resource": "git:directory",
-				"url": "https://github.com/OWNER/REPO",
+				"url": "https://github.com/debarjun-sen/ai-content-auditor",
 				"ref": "main",
 				"refType": "branch",
 				"path": "ai-content-auditor-demo"
