@@ -1,0 +1,56 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "AI Content Auditor — live demo",
+		"description": "Installs AI Content Auditor and its demo companion from GitHub, seeds flawed demo content and runs a quick scan so the dashboard is populated on arrival.",
+		"author": "ai-content-auditor"
+	},
+	"landingPage": "/wp-admin/admin.php?page=ai-content-auditor",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/OWNER/REPO",
+				"ref": "main",
+				"refType": "branch",
+				"path": "ai-content-auditor"
+			},
+			"options": { "activate": true }
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/OWNER/REPO",
+				"ref": "main",
+				"refType": "branch",
+				"path": "ai-content-auditor-demo"
+			},
+			"options": { "activate": true }
+		},
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Northwind Studio",
+				"permalink_structure": "/%postname%/"
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp aica-demo seed"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp aica audit --mode=quick"
+		}
+	]
+}

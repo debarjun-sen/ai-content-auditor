@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="AI Content Auditor">
+	<description>WordPress Coding Standards for AI Content Auditor.</description>
+	<file>.</file>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>tests/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+
+	<config name="minimum_supported_wp_version" value="6.9"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<!-- Tool handlers share one ( $input, Tool_Context $ctx ) signature; not every handler needs the context. -->
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed"/>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ai-content-auditor"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="aica"/>
+				<element value="AICA"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

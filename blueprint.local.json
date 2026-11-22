@@ -1,0 +1,42 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "AI Content Auditor — local demo",
+		"description": "Activates the locally mounted plugins, seeds demo content and runs a quick scan.",
+		"author": "ai-content-auditor"
+	},
+	"landingPage": "/wp-admin/admin.php?page=ai-content-auditor",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "activatePlugin",
+			"pluginPath": "ai-content-auditor/ai-content-auditor.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "ai-content-auditor-demo/ai-content-auditor-demo.php"
+		},
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Northwind Studio",
+				"permalink_structure": "/%postname%/"
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp aica-demo seed"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp aica audit --mode=quick"
+		}
+	]
+}
